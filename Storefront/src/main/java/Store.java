@@ -181,7 +181,42 @@ public class Store {
     
     private void reviewFinancials()
     {
-        myBankAccount.balanceReport();
+        boolean finished = false;
+        while(!finished) {
+            try {
+                myBankAccount.balanceReport();
+
+                System.out.println("\n1. Deposit          2. Withdraw");
+                System.out.println("\n*Press any other number to go back*");
+                int depOrWith = input.nextInt();
+
+                if(depOrWith == 1) {
+                    System.out.println("How much would you like to deposit?");
+                    int numDesposit = input.nextInt();
+
+                    myBankAccount.depositMoney(Math.abs(numDesposit));
+                    finished = true;
+                }
+                else if (depOrWith == 2) {
+                    System.out.println("How much would you like to withdraw?");
+                    int withdrawNum = input.nextInt();
+
+                    if(myBankAccount.canAfford(Math.abs(withdrawNum))) {
+                        myBankAccount.makePurchase(Math.abs(withdrawNum));
+                        finished = true;
+                    }
+                }
+                else {
+                    finished = true;
+                }
+            }
+            catch(InputMismatchException exception) {
+                input.nextLine();
+                System.out.println("Invalid Input! Try again.");
+            }
+        }
+
+
     }
     
     
@@ -196,13 +231,16 @@ public class Store {
                  System.out.println("" + item.getItemName());
              }
 
-             System.out.println("Would you like to purchase any held items now? 1 for YES or any other key for NO");
+             System.out.println("Press 1 if you would like to purchase any held items, press 2 if you would like to remove any items from your shopping cart, and press any other key for neither");
 
              String userInput = input.nextLine();
 
              if(userInput.equals("1"))
              {
                  buyItemInShoppingCart();
+             }
+             else if(userInput.equals("2")) {
+                 //removeItemFromShoppingCart();
              }
              else
              {

@@ -18,6 +18,7 @@ public class BankAccount {
     // Ask the user to set password, requiring two successful entries to lock it in permanently
     private void setPassword()
     {
+
         try {
             System.out.println("Please enter a password for your account: ");
             password = scan.nextLine();
@@ -34,7 +35,7 @@ public class BankAccount {
             }
         }
         catch(InputMismatchException exception) {
-
+            System.out.println("Invalid Input! Try again.");
         }
 
     }
