@@ -61,46 +61,47 @@ public class Store {
         boolean stillShopping = true;
         while(stillShopping)
         {
-            System.out.println("\n****************************************************** ");
-            System.out.println("Please choose from one of the following menu options: ");
-            System.out.println("1. View catalog of items to buy");
-            System.out.println("2. Buy an item");
-            System.out.println("3. View your cart of held items");
-            System.out.println("4. Review the items you already own");
-            System.out.println("5. View the status of your financials");
-            System.out.println("6. YOUR CUSTOM IDEA HERE??");
-            System.out.println("7. Exit program");
-            
-            int userInput = input.nextInt();
-            input.nextLine(); // buffer clear
-            
-            switch(userInput){
-                case 1:
-                    viewCatalog();
-                    break;
-                case 2:
-                    buyItem();
-                    break;
-                case 3:
-                    reviewMyShoppingCart();
-                    break;
-                case 4:
-                    reviewMyInventory();
-                    break;
-                case 5:
-                    reviewFinancials();
-                    break;
-                case 6:
-                    System.out.println("YOUR CONTENT HERE! :) :)");
-                    break;
-                case 7:
-                    System.out.println("Thanks for shopping! Now exiting program ... ");
-                    System.exit(0);                    
-                    break;
-                default:
-                    System.out.println("Incorrect input. Choose again!");
-                    break;
+            try {
+                System.out.println("\n****************************************************** ");
+                System.out.println("Please choose from one of the following menu options: ");
+                System.out.println("1. View catalog of items to buy");
+                System.out.println("2. Buy an item");
+                System.out.println("3. View your cart of held items");
+                System.out.println("4. Review the items you already own");
+                System.out.println("5. View the status of your financials");
+                System.out.println("6. YOUR CUSTOM IDEA HERE??");
+                System.out.println("7. Exit program");
+
+                int userInput = input.nextInt();
+                input.nextLine(); // buffer clear
+
+                switch(userInput){
+                    case 1 -> viewCatalog();
+
+                    case 2 -> buyItem();
+
+                    case 3 -> reviewMyShoppingCart();
+
+                    case 4 -> reviewMyInventory();
+
+                    case 5 -> reviewFinancials();
+
+                    case 6 -> System.out.println("YOUR CONTENT HERE! :) :)");
+
+                    case 7 -> {
+                        System.out.println("Thanks for shopping! Now exiting program ... ");
+                        stillShopping = false;
+                        System.exit(0);
+                    }
+
+                    default -> System.out.println("Incorrect input. Choose again!");
+                }
             }
+            catch(InputMismatchException exception) {
+                input.nextLine();
+                System.out.println("Incorrect input. Choose again!");
+            }
+
             
         }
     }

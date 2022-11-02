@@ -136,6 +136,7 @@ public class StoreInventory {
         BuyableGame breathOfTheWild = new BuyableGame(79.99, "Breath of the Wild", 1, "Video Game");
         gamesForSale.add(breathOfTheWild);
         BuyableGame forza = new BuyableGame(59.99, "Forza", 2, "Video Game");
+        gamesForSale.add(forza);
     }
     
     // Helper method to add multiple copies of the same item to the inventory at once
