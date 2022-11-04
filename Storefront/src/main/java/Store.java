@@ -1,5 +1,6 @@
 
 import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -223,29 +224,33 @@ public class Store {
     // SHOPPING CART METHODS
     private void reviewMyShoppingCart()
     {
+        //Buyable item = null;
         if(!myShoppingCart.isEmpty())
         {
              System.out.println("Here are all of the items being held in your shopping cart: ");
              for(Buyable item: myShoppingCart)
              {
                  System.out.println("" + item.getItemName());
+
+                 System.out.println("Press 1 if you would like to purchase any held items, press 2 if you would like to remove any items from your shopping cart, and press any other key for neither");
+
+                 String userInput = input.nextLine();
+
+                 if(userInput.equals("1"))
+                 {
+                     buyItemInShoppingCart();
+                 }
+                 else if(userInput.equals("2")) {
+
+                     removeItemFromShoppingCart(item);
+                 }
+                 else
+                 {
+                     System.out.println("Leaving shopping cart as is and returning to the storefront ... ");
+                 }
              }
 
-             System.out.println("Press 1 if you would like to purchase any held items, press 2 if you would like to remove any items from your shopping cart, and press any other key for neither");
 
-             String userInput = input.nextLine();
-
-             if(userInput.equals("1"))
-             {
-                 buyItemInShoppingCart();
-             }
-             else if(userInput.equals("2")) {
-                 //removeItemFromShoppingCart();
-             }
-             else
-             {
-                 System.out.println("Leaving shopping cart as is and returning to the storefront ... ");
-             } 
         }
         else
         {
@@ -263,8 +268,13 @@ public class Store {
         {
             if(itemInCart.getItemName().toLowerCase().equals(userChoice.toLowerCase()))
             {
-                makePurchaseFromShoppingCart(itemInCart);
-                break;
+                try {
+                    makePurchaseFromShoppingCart(itemInCart);
+
+                }
+                catch(ConcurrentModificationException exception) {
+
+                }
             }
             else
             {
@@ -284,8 +294,10 @@ public class Store {
         {
             if(cartItem.getItemName().toLowerCase().equals(userChoice.toLowerCase()))
             {
+
+                myShoppingCart.remove(item);
                 System.out.println("You have removed " + cartItem.getItemName() + " from your shopping cart.");
-                moveItemFromShoppingCartToInventory(item);
+
             }
             else
             {
