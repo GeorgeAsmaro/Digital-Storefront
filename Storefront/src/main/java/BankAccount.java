@@ -94,17 +94,24 @@ public class BankAccount {
     
     private boolean checkPassword()
     {
-        System.out.println("Please enter your password to access account: ");
-        String passEntry = scan.nextLine();
-        if(passEntry.equals(password))
-        {
-            return true;
+        try {
+            System.out.println("Please enter your password to access account: ");
+            String passEntry = scan.nextLine();
+            if(passEntry.equals(password))
+            {
+                return true;
+            }
+            else
+            {
+                System.out.println("Incorrect password!");
+                return false;
+            }
         }
-        else
-        {
-            System.out.println("Incorrect password!");
-            return false;
+        catch(InputMismatchException exception) {
+            scan.nextLine();
+            System.out.println("Invalid Input. Try again!");
         }
+        return checkPassword();
     }
 
 }

@@ -6,12 +6,15 @@ public class StoreInventory {
     private ArrayList<BuyableClothing> clothesForSale = new ArrayList<BuyableClothing>();
     private ArrayList<BuyableFood> foodForSale = new ArrayList<BuyableFood>();
     private ArrayList<BuyableGame> gamesForSale = new ArrayList<BuyableGame>();
+
+    private ArrayList<BuyableElectronics> electronicsForSale = new ArrayList<BuyableElectronics>();
     
     public StoreInventory()
     {
         populateClothesInventory();
         populateFoodInventory();
         populateGamesInventory();
+        populateElectronicsInventory();
     }
     
     // Getters and setters for inventory lists
@@ -30,7 +33,10 @@ public class StoreInventory {
     {
         return gamesForSale;
     }
-    
+
+    public ArrayList<BuyableElectronics> getElectronicsInventory() {
+        return electronicsForSale;
+    }
     
     // Returns a master list of all inventory items at once
     public ArrayList<Buyable> getFullInventoryList()
@@ -39,8 +45,33 @@ public class StoreInventory {
         fullInventory.addAll(clothesForSale);
         fullInventory.addAll(foodForSale);
         fullInventory.addAll(gamesForSale);
+        fullInventory.addAll(electronicsForSale);
         
         return fullInventory;
+    }
+
+    public ArrayList<Buyable> getClothesList() {
+        ArrayList<Buyable> clothesInventory = new ArrayList<Buyable>();
+        clothesInventory.addAll(clothesForSale);
+        return clothesInventory;
+    }
+
+    public ArrayList<Buyable> getGamesList() {
+        ArrayList<Buyable> gamesInventory = new ArrayList<Buyable>();
+        gamesInventory.addAll(gamesForSale);
+        return gamesInventory;
+    }
+
+    public ArrayList<Buyable> getFoodList() {
+        ArrayList<Buyable> foodInventory = new ArrayList<Buyable>();
+        foodInventory.addAll(foodForSale);
+        return foodInventory;
+    }
+
+    public ArrayList<Buyable> getElectronicsList() {
+        ArrayList<Buyable> electronicsInventory = new ArrayList<Buyable>();
+        electronicsInventory.addAll(electronicsForSale);
+        return electronicsInventory;
     }
     
     
@@ -137,6 +168,23 @@ public class StoreInventory {
         gamesForSale.add(breathOfTheWild);
         BuyableGame forza = new BuyableGame(59.99, "Forza", 2, "Video Game");
         gamesForSale.add(forza);
+    }
+
+    private void populateElectronicsInventory() {
+        BuyableElectronics iPhone = new BuyableElectronics(999, "iPhone 14", "Apple");
+        electronicsForSale.add(iPhone);
+
+        BuyableElectronics S20 = new BuyableElectronics(799, "Galaxy S20", "Samsung");
+        electronicsForSale.add(S20);
+
+        BuyableElectronics Pixel4 = new BuyableElectronics(699, "Pixel 4", "Google");
+        electronicsForSale.add(Pixel4);
+
+        BuyableElectronics ZFold = new BuyableElectronics(1299, "Galaxy Z Flip", "Samsung");
+        electronicsForSale.add(ZFold);
+
+        BuyableElectronics Huawei = new BuyableElectronics(599, "Huawei", "Huawei");
+        electronicsForSale.add(Huawei);
     }
     
     // Helper method to add multiple copies of the same item to the inventory at once
