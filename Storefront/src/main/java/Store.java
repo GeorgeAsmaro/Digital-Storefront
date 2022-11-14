@@ -128,6 +128,7 @@ public class Store {
                         {
                             System.out.println("" + item.getItemName());
                         }
+                        finished = true;
                     }
 
                     case 2 -> {
@@ -135,6 +136,7 @@ public class Store {
                         {
                             System.out.println("" + item.getItemName());
                         }
+                        finished = true;
                     }
 
                     case 3 -> {
@@ -142,6 +144,7 @@ public class Store {
                         {
                             System.out.println("" + item.getItemName());
                         }
+                        finished = true;
                     }
 
                     case 4 -> {
@@ -149,6 +152,7 @@ public class Store {
                         {
                             System.out.println("" + item.getItemName());
                         }
+                        finished = true;
                     }
 
                     case 5 -> {
@@ -156,6 +160,7 @@ public class Store {
                         {
                             System.out.println("" + item.getItemName());
                         }
+                        finished = true;
                     }
 
                     default -> {
@@ -269,9 +274,16 @@ public class Store {
                     int withdrawNum = input.nextInt();
 
                     if(myBankAccount.canAfford(Math.abs(withdrawNum))) {
-                        myBankAccount.makePurchase(Math.abs(withdrawNum));
-                        finished = true;
+
+                        if(myBankAccount.checkPassword()) {
+                            myBankAccount.makePurchase(Math.abs(withdrawNum));
+                            finished = true;
+                        }
                     }
+                    else {
+                        System.out.println("You can't afford that!");
+                    }
+
                 }
                 else {
                     finished = true;
@@ -343,24 +355,25 @@ public class Store {
     {
         System.out.println("Type in the name of the item you want to buy from the shopping cart: ");
         String userChoice = input.nextLine();
-        
-        for(Buyable itemInCart: myShoppingCart)
-        {
-            if(itemInCart.getItemName().toLowerCase().equals(userChoice.toLowerCase()))
+        try {
+            for(Buyable itemInCart: myShoppingCart)
             {
-                try {
+                if(itemInCart.getItemName().toLowerCase().equals(userChoice.toLowerCase()))
+                {
+
                     makePurchaseFromShoppingCart(itemInCart);
 
                 }
-                catch(ConcurrentModificationException exception) {
-                    System.out.println("Error! Try again");
+                else
+                {
+                    System.out.println("Item could not be found in shopping cart.");
                 }
             }
-            else
-            {
-                System.out.println("Item could not be found in shopping cart.");
-            }
         }
+        catch(ConcurrentModificationException exception) {
+            System.out.println("Error! Try again");
+        }
+
         
     }
     
@@ -417,10 +430,12 @@ public class Store {
         // If you can afford the item, buy it and remove it from the store
         if(myBankAccount.canAfford(item.getPrice()))
         {
-            myBankAccount.makePurchase(item.getPrice());
-            System.out.println("Purchase complete! You now own " + item.getItemName());
-            myStuff.add(item);
-            storeInventory.removeItemFromInventory(item);
+            if(myBankAccount.checkPassword()) {
+                myBankAccount.makePurchase(item.getPrice());
+                System.out.println("Purchase complete! You now own " + item.getItemName());
+                myStuff.add(item);
+                storeInventory.removeItemFromInventory(item);
+            }
         }
         else
         {
@@ -433,10 +448,19 @@ public class Store {
         // If you can afford the item, buy it and remove it from the store
         if(myBankAccount.canAfford(item.getPrice()))
         {
-            myBankAccount.makePurchase(item.getPrice());
-            System.out.println("Purchase complete! You now own " + item.getItemName());
-            myStuff.add(item);
-            myShoppingCart.remove(item);
+            if(myBankAccount.checkPassword()) {
+                try {
+                    myBankAccount.makePurchase(item.getPrice());
+                    System.out.println("Purchase complete! You now own " + item.getItemName());
+                    myStuff.add(item);
+                    myShoppingCart.remove(item);
+                }
+                catch(ConcurrentModificationException exception) {
+                    System.out.println("Error! Try again.");
+                }
+
+            }
+
         }
         else
         {

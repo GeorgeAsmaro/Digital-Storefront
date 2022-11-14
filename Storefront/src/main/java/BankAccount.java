@@ -54,37 +54,25 @@ public class BankAccount {
     }
     
     // Allow the user to attempt to withdraw money and report on success. If successful, adjust balance.
-    public boolean makePurchase(double amount)
+    public void makePurchase(double amount)
     {
-        if(checkPassword())
+        if(amount <= balance)
         {
-            if(amount <= balance)
-            {
-                balance-=amount;
-                System.out.println("" + amount + " spent from your account");
-                System.out.println("You have " + balance + " remaining.");
-                return true;
-            }
-            else
-            {
-                System.out.println("Not enough remaining funds");
-                return false;
-            }
+            balance-=amount;
+            System.out.println("" + amount + " spent from your account");
+            System.out.println("You have " + balance + " remaining.");
         }
         else
         {
-            return false; // fail to withdraw due to bad password
+            System.out.println("Not enough remaining funds");
         }
     }
     
     public void depositMoney(double amount)
     {
-        if(checkPassword())
-        {
-            balance+=amount;
-            System.out.println("You added " + amount + " to your account.");
-            System.out.println("You now have $" + balance + " available.");            
-        }
+        balance+=amount;
+        System.out.println("You added " + amount + " to your account.");
+        System.out.println("You now have $" + balance + " available.");
     }
     
     public void balanceReport()
@@ -92,9 +80,7 @@ public class BankAccount {
         System.out.println("You have " + balance + " left in your account.");
     }
     
-    private boolean checkPassword()
-    {
-        try {
+    public boolean checkPassword() {
             System.out.println("Please enter your password to access account: ");
             String passEntry = scan.nextLine();
             if(passEntry.equals(password))
@@ -106,12 +92,6 @@ public class BankAccount {
                 System.out.println("Incorrect password!");
                 return false;
             }
-        }
-        catch(InputMismatchException exception) {
-            scan.nextLine();
-            System.out.println("Invalid Input. Try again!");
-        }
-        return checkPassword();
     }
 
 }
