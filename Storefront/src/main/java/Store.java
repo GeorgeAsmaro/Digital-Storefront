@@ -313,27 +313,32 @@ public class Store {
                     {
                         System.out.println("" + item.getItemName());
 
-                        System.out.println("Press 1 if you would like to purchase any held items, press 2 if you would like to remove any items from your shopping cart, and press any other key for neither");
 
-                        String userInput = input.nextLine();
-
-                        if(userInput.equals("1"))
-                        {
-                            buyItemInShoppingCart();
-                            finished = true;
-                        }
-                        else if(userInput.equals("2")) {
-
-                            //removeItemFromShoppingCart(item);
-                            finished = true;
-                        }
-                        else
-                        {
-                            System.out.println("Leaving shopping cart as is and returning to the storefront ... ");
-                            finished = true;
-                        }
                     }
+                    System.out.println("Press 1 if you would like to purchase any held items, press 2 if you would like to remove any items from your shopping cart, and press any other key for neither");
 
+                    String userInput = input.nextLine();
+
+                    if(userInput.equals("1"))
+                    {
+                        buyItemInShoppingCart();
+                        finished = true;
+                    }
+                    else if(userInput.equals("2")) {
+
+                        for(Buyable item: myShoppingCart)
+                        {
+                            removeItemFromShoppingCart(item);
+
+
+                        }
+                        finished = true;
+                    }
+                    else
+                    {
+                        System.out.println("Leaving shopping cart as is and returning to the storefront ... ");
+                        finished = true;
+                    }
 
                 }
                 else
@@ -355,13 +360,14 @@ public class Store {
     {
         System.out.println("Type in the name of the item you want to buy from the shopping cart: ");
         String userChoice = input.nextLine();
-        try {
+
             for(Buyable itemInCart: myShoppingCart)
             {
                 if(itemInCart.getItemName().toLowerCase().equals(userChoice.toLowerCase()))
                 {
 
                     makePurchaseFromShoppingCart(itemInCart);
+                    break;
 
                 }
                 else
@@ -369,13 +375,11 @@ public class Store {
                     System.out.println("Item could not be found in shopping cart.");
                 }
             }
-        }
-        catch(ConcurrentModificationException exception) {
-            System.out.println("Error! Try again");
-        }
+    }
+
 
         
-    }
+
     
     private void removeItemFromShoppingCart(Buyable item)
     {

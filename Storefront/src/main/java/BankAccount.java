@@ -81,17 +81,17 @@ public class BankAccount {
     }
     
     public boolean checkPassword() {
-            System.out.println("Please enter your password to access account: ");
-            String passEntry = scan.nextLine();
-            if(passEntry.equals(password))
-            {
-                return true;
-            }
-            else
-            {
-                System.out.println("Incorrect password!");
-                return false;
-            }
+        System.out.println("Please enter your password to access account: ");
+        String passEntry = scan.nextLine();
+        if(passEntry.equals(password))
+        {
+            return true;
+        }
+        else
+        {
+            System.out.println("Incorrect password!");
+            return false;
+        }
     }
 
 }
