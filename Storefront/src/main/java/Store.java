@@ -1,8 +1,5 @@
 
-import java.util.ArrayList;
-import java.util.ConcurrentModificationException;
-import java.util.InputMismatchException;
-import java.util.Scanner;
+import java.util.*;
 
 public class Store {
     Scanner input = new Scanner(System.in);
@@ -244,10 +241,38 @@ public class Store {
 
     private void reviewMyInventory()
     {
+        int numOfOne = 0;
         System.out.println("Here is a list of the items you now own: ");
         for(int i = 0; i < myStuff.size(); i++)
         {
-            System.out.println("" + myStuff.get(i).getItemName());
+            /*if(i == 0) {
+
+                System.out.print(i + 1 + ". ");
+                System.out.print(myStuff.get(i).getItemName() + " [" + numOfOne + "]");
+                System.out.println("");
+            }*/
+
+            if(i >= 1) {
+                //System.out.println("test");
+                if(myStuff.get(i).equals(myStuff.get(i-1))) {
+                    numOfOne++;
+                    //System.out.println(numOfOne);
+                    System.out.print(i + ". ");
+                    System.out.print(myStuff.get(i).getItemName() + " [" + numOfOne + "]");
+                    System.out.println("");
+                    //System.out.println(numOfOne);
+
+                }
+                else {
+                    numOfOne = 1;
+                    System.out.print(i + ". ");
+                    System.out.print(myStuff.get(i).getItemName() + " [" + numOfOne + "]");
+                    System.out.println("");
+                    //System.out.println(numOfOne);
+
+                }
+            }
+
         }
     }
     
@@ -259,14 +284,14 @@ public class Store {
                 myBankAccount.balanceReport();
 
                 System.out.println("\n1. Deposit          2. Withdraw");
-                System.out.println("\n*Press any other number to go back*");
+                System.out.println("\n-Press any other number to go back-");
                 int depOrWith = input.nextInt();
 
                 if(depOrWith == 1) {
                     System.out.println("How much would you like to deposit?");
-                    int numDesposit = input.nextInt();
+                    int numDeposit = input.nextInt();
 
-                    myBankAccount.depositMoney(Math.abs(numDesposit));
+                    myBankAccount.depositMoney(Math.abs(numDeposit));
                     finished = true;
                 }
                 else if (depOrWith == 2) {
@@ -280,9 +305,7 @@ public class Store {
                             finished = true;
                         }
                     }
-                    else {
-                        System.out.println("You can't afford that!");
-                    }
+
 
                 }
                 else {
@@ -291,7 +314,7 @@ public class Store {
             }
             catch(InputMismatchException exception) {
                 input.nextLine();
-                System.out.println("Invalid Input! Try again.");
+                System.out.println("Invalid Input! Make sure you type a number and try again.");
             }
         }
 
@@ -328,8 +351,9 @@ public class Store {
 
                         for(Buyable item: myShoppingCart)
                         {
+                            //this aspect is still causing an exception error, still needs to be fixed
                             removeItemFromShoppingCart(item);
-
+                            break;
 
                         }
                         finished = true;

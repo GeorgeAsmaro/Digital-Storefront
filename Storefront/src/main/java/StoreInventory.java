@@ -168,6 +168,8 @@ public class StoreInventory {
         gamesForSale.add(breathOfTheWild);
         BuyableGame forza = new BuyableGame(59.99, "Forza", 2, "Video Game");
         gamesForSale.add(forza);
+        BuyableGame eldenRing = new BuyableGame(79.99,"Elden Ring",1,"Video Game");
+        gamesForSale.add(eldenRing);
     }
 
     private void populateElectronicsInventory() {
