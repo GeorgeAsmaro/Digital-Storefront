@@ -413,11 +413,9 @@ public class Store {
                     else if(!mostRecentPurchase.equals("") && !secondMostRecentPurchase.equals("") && !thirdMostRecentPurchase.equals("")) {
                         String tempOne;
                         String tempTwo;
-                        String tempThree;
 
                         tempOne = mostRecentPurchase;
                         tempTwo = secondMostRecentPurchase;
-                        tempThree = thirdMostRecentPurchase;
 
                         secondMostRecentPurchase = tempOne;
                         thirdMostRecentPurchase = tempTwo;
@@ -521,11 +519,9 @@ public class Store {
                 else if(!mostRecentPurchase.equals("") && !secondMostRecentPurchase.equals("") && !thirdMostRecentPurchase.equals("")) {
                     String tempOne;
                     String tempTwo;
-                    String tempThree;
 
                     tempOne = mostRecentPurchase;
                     tempTwo = secondMostRecentPurchase;
-                    tempThree = thirdMostRecentPurchase;
 
                     secondMostRecentPurchase = tempOne;
                     thirdMostRecentPurchase = tempTwo;
