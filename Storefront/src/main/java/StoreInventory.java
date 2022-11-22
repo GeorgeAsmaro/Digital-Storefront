@@ -182,7 +182,7 @@ public class StoreInventory {
         BuyableElectronics Pixel4 = new BuyableElectronics(699, "Pixel 4", "Google");
         electronicsForSale.add(Pixel4);
 
-        BuyableElectronics ZFold = new BuyableElectronics(1299, "Galaxy Z Flip", "Samsung");
+        BuyableElectronics ZFold = new BuyableElectronics(1299, "Galaxy Z Fold", "Samsung");
         electronicsForSale.add(ZFold);
 
         BuyableElectronics Huawei = new BuyableElectronics(599, "Huawei", "Huawei");

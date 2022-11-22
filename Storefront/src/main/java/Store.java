@@ -13,6 +13,12 @@ public class Store {
     private StoreInventory storeInventory;
 
     boolean moneyChosen = false;
+
+    boolean recentPurchaseMade = false;
+
+    String mostRecentPurchase = "";
+    String secondMostRecentPurchase = "";
+    String thirdMostRecentPurchase = "";
     
     public Store()
     {
@@ -241,39 +247,35 @@ public class Store {
 
     private void reviewMyInventory()
     {
-        int numOfOne = 0;
+        int numOfOne = 1;
         System.out.println("Here is a list of the items you now own: ");
         for(int i = 0; i < myStuff.size(); i++)
         {
-            /*if(i == 0) {
-
-                System.out.print(i + 1 + ". ");
-                System.out.print(myStuff.get(i).getItemName() + " [" + numOfOne + "]");
-                System.out.println("");
-            }*/
-
-            if(i >= 1) {
-                //System.out.println("test");
-                if(myStuff.get(i).equals(myStuff.get(i-1))) {
-                    numOfOne++;
-                    //System.out.println(numOfOne);
-                    System.out.print(i + ". ");
+                    System.out.print(i+1 + ". ");
                     System.out.print(myStuff.get(i).getItemName() + " [" + numOfOne + "]");
                     System.out.println("");
-                    //System.out.println(numOfOne);
+        }
 
-                }
-                else {
-                    numOfOne = 1;
-                    System.out.print(i + ". ");
-                    System.out.print(myStuff.get(i).getItemName() + " [" + numOfOne + "]");
-                    System.out.println("");
-                    //System.out.println(numOfOne);
+        viewRecentPurchases();
+    }
 
-                }
+    private void viewRecentPurchases() {
+        if(recentPurchaseMade) {
+            System.out.println();
+            System.out.println("Most recent purchase: " + mostRecentPurchase);
+
+            if(!secondMostRecentPurchase.equals("")) {
+                System.out.println("Second most recent purchase: " + secondMostRecentPurchase);
             }
 
+            if(!thirdMostRecentPurchase.equals("")) {
+                System.out.println("Third most recent purchase: " + thirdMostRecentPurchase);
+            }
         }
+        else {
+            System.out.println("No purchases made.");
+        }
+
     }
     
     private void reviewFinancials()
@@ -389,7 +391,42 @@ public class Store {
             {
                 if(itemInCart.getItemName().toLowerCase().equals(userChoice.toLowerCase()))
                 {
+                    if(mostRecentPurchase.equals("")) {
+                        mostRecentPurchase = itemInCart.getItemName();
+                        recentPurchaseMade = true;
+                    }
+                    else if(!mostRecentPurchase.equals("") && secondMostRecentPurchase.equals("")) {
+                        secondMostRecentPurchase = mostRecentPurchase;
+                        mostRecentPurchase = itemInCart.getItemName();
 
+                    }
+                    else if(!mostRecentPurchase.equals("") && !secondMostRecentPurchase.equals("") && thirdMostRecentPurchase.equals("")) {
+                        String temp1;
+                        String temp2;
+                        temp1 = mostRecentPurchase;
+                        temp2 = secondMostRecentPurchase;
+
+                        secondMostRecentPurchase = temp1;
+                        thirdMostRecentPurchase = temp2;
+                        mostRecentPurchase = itemInCart.getItemName();
+                    }
+                    else if(!mostRecentPurchase.equals("") && !secondMostRecentPurchase.equals("") && !thirdMostRecentPurchase.equals("")) {
+                        String tempOne;
+                        String tempTwo;
+                        String tempThree;
+
+                        tempOne = mostRecentPurchase;
+                        tempTwo = secondMostRecentPurchase;
+                        tempThree = thirdMostRecentPurchase;
+
+                        secondMostRecentPurchase = tempOne;
+                        thirdMostRecentPurchase = tempTwo;
+
+                        mostRecentPurchase = itemInCart.getItemName();
+
+
+
+                    }
                     makePurchaseFromShoppingCart(itemInCart);
                     break;
 
@@ -462,6 +499,42 @@ public class Store {
                 myBankAccount.makePurchase(item.getPrice());
                 System.out.println("Purchase complete! You now own " + item.getItemName());
                 myStuff.add(item);
+                if(mostRecentPurchase.equals("")) {
+                    mostRecentPurchase = item.getItemName();
+                    recentPurchaseMade = true;
+                }
+                else if(!mostRecentPurchase.equals("") && secondMostRecentPurchase.equals("")) {
+                    secondMostRecentPurchase = mostRecentPurchase;
+                    mostRecentPurchase = item.getItemName();
+
+                }
+                else if(!mostRecentPurchase.equals("") && !secondMostRecentPurchase.equals("") && thirdMostRecentPurchase.equals("")) {
+                    String temp1;
+                    String temp2;
+                    temp1 = mostRecentPurchase;
+                    temp2 = secondMostRecentPurchase;
+
+                    secondMostRecentPurchase = temp1;
+                    thirdMostRecentPurchase = temp2;
+                    mostRecentPurchase = item.getItemName();
+                }
+                else if(!mostRecentPurchase.equals("") && !secondMostRecentPurchase.equals("") && !thirdMostRecentPurchase.equals("")) {
+                    String tempOne;
+                    String tempTwo;
+                    String tempThree;
+
+                    tempOne = mostRecentPurchase;
+                    tempTwo = secondMostRecentPurchase;
+                    tempThree = thirdMostRecentPurchase;
+
+                    secondMostRecentPurchase = tempOne;
+                    thirdMostRecentPurchase = tempTwo;
+
+                    mostRecentPurchase = item.getItemName();
+
+
+
+                }
                 storeInventory.removeItemFromInventory(item);
             }
         }
