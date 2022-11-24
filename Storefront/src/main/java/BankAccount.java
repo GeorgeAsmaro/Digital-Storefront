@@ -9,16 +9,13 @@ public class BankAccount {
     private String password;
     private float balance;
 
-    public BankAccount(float initialDeposit)
-    {
+    public BankAccount(float initialDeposit) {
         balance = initialDeposit;
         setPassword();
     }
     
     // Ask the user to set password, requiring two successful entries to lock it in permanently
-    private void setPassword()
-    {
-
+    private void setPassword() {
         try {
             System.out.println("Please enter a password for your account: ");
             password = scan.nextLine();
@@ -37,11 +34,9 @@ public class BankAccount {
         catch(InputMismatchException exception) {
             System.out.println("Invalid Input! Try again.");
         }
-
     }
     
-    public boolean canAfford(double amount)
-    {
+    public boolean canAfford(double amount) {
         if(amount <= balance)
         {
             return true;
@@ -54,8 +49,7 @@ public class BankAccount {
     }
     
     // Allow the user to attempt to withdraw money and report on success. If successful, adjust balance.
-    public void makePurchase(double amount)
-    {
+    public void makePurchase(double amount) {
         if(amount <= balance)
         {
             balance-=amount;
@@ -68,8 +62,7 @@ public class BankAccount {
         }
     }
     
-    public void depositMoney(double amount)
-    {
+    public void depositMoney(double amount) {
         balance+=amount;
         System.out.println("You added " + amount + " to your account.");
         System.out.println("You now have $" + balance + " available.");

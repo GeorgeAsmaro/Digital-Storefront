@@ -20,16 +20,14 @@ public class Store {
     String secondMostRecentPurchase = "";
     String thirdMostRecentPurchase = "";
     
-    public Store()
-    {
+    public Store() {
         System.out.println("Welcome to my storefont!");
         setupAccounts();
         setupStore();
         presentShoppingMenu();
     }
     
-    private void setupAccounts()
-    {
+    private void setupAccounts() {
         setupBankAccount();
         myStuff = new ArrayList<Buyable>();
         myShoppingCart = new ArrayList<Buyable>();
@@ -40,8 +38,7 @@ public class Store {
         storeInventory = new StoreInventory();
     }
 
-    private void setupBankAccount()
-    {
+    private void setupBankAccount() {
         while(!moneyChosen) {
             try {
                 System.out.println("To begin, please set up a bank account.");
@@ -57,11 +54,9 @@ public class Store {
                 System.out.println("Invalid Input! Try again.");
             }
         }
-
     }
     
-    private void presentShoppingMenu()
-    {
+    private void presentShoppingMenu() {
         boolean stillShopping = true;
         while(stillShopping)
         {
@@ -129,13 +124,10 @@ public class Store {
                 input.nextLine();
                 System.out.println("Incorrect input. Choose again!");
             }
-
-            
         }
     }
     
-    private void viewCatalog()
-    {
+    private void viewCatalog() {
         boolean finished = false;
         while(!finished) {
             try {
@@ -202,8 +194,7 @@ public class Store {
         }
     }
     
-    private void buyItem()
-    {
+    private void buyItem() {
         boolean finished = false;
         while(!finished) {
             try {
@@ -264,13 +255,10 @@ public class Store {
                 System.out.println("Invalid Input! Try again");
             }
         }
-
-        
     }
     
 
-    private void reviewMyInventory()
-    {
+    private void reviewMyInventory() {
         int numOfOne = 1;
         System.out.println("Here is a list of the items you now own: ");
         for(int i = 0; i < myStuff.size(); i++)
@@ -279,7 +267,6 @@ public class Store {
                     System.out.print(myStuff.get(i).getItemName() + " [" + numOfOne + "]");
                     System.out.println("");
         }
-
         viewRecentPurchases();
     }
 
@@ -299,11 +286,9 @@ public class Store {
         else {
             System.out.println("No purchases made.");
         }
-
     }
     
-    private void reviewFinancials()
-    {
+    private void reviewFinancials() {
         boolean finished = false;
         while(!finished) {
             try {
@@ -344,14 +329,11 @@ public class Store {
                 System.out.println("Invalid Input! Make sure you type a number and try again.");
             }
         }
-
-
     }
     
     
     // SHOPPING CART METHODS
-    private void reviewMyShoppingCart()
-    {
+    private void reviewMyShoppingCart() {
         boolean finished = false;
         while(!finished) {
             try {
@@ -403,12 +385,9 @@ public class Store {
                 System.out.println("Invalid Input! Try again.");
             }
         }
-
-        
     }
     
-    private void buyItemInShoppingCart()
-    {
+    private void buyItemInShoppingCart() {
         System.out.println("Type in the name of the item you want to buy from the shopping cart: ");
         String userChoice = input.nextLine();
 
@@ -465,8 +444,7 @@ public class Store {
         
 
     
-    private void removeItemFromShoppingCart(Buyable item)
-    {
+    private void removeItemFromShoppingCart(Buyable item) {
         boolean finished = false;
         while(!finished) {
             try {
@@ -496,18 +474,15 @@ public class Store {
                 System.out.println("Invalid Input! Try again");
             }
         }
-
     }
     
     // Move item from inventory to shopping cart
-    private void moveItemToShoppingCart(Buyable item)
-    {
+    private void moveItemToShoppingCart(Buyable item) {
         myShoppingCart.add(item);
         storeInventory.removeItemFromInventory(item);
     }
     
-    private void moveItemFromShoppingCartToInventory(Buyable item)
-    {
+    private void moveItemFromShoppingCartToInventory(Buyable item) {
         storeInventory.restockItemToInventory(item);
         myShoppingCart.remove(item);
     }
@@ -556,8 +531,7 @@ public class Store {
     }
     
 
-    private void makePurchaseFromStore(Buyable item)
-    {
+    private void makePurchaseFromStore(Buyable item) {
         // If you can afford the item, buy it and remove it from the store
         if(myBankAccount.canAfford(item.getPrice()))
         {
@@ -608,8 +582,7 @@ public class Store {
         }
     }
     
-    private void makePurchaseFromShoppingCart(Buyable item)
-    {
+    private void makePurchaseFromShoppingCart(Buyable item) {
         // If you can afford the item, buy it and remove it from the store
         if(myBankAccount.canAfford(item.getPrice()))
         {

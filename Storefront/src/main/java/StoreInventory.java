@@ -9,8 +9,7 @@ public class StoreInventory {
 
     private ArrayList<BuyableElectronics> electronicsForSale = new ArrayList<BuyableElectronics>();
     
-    public StoreInventory()
-    {
+    public StoreInventory() {
         populateClothesInventory();
         populateFoodInventory();
         populateGamesInventory();
@@ -39,8 +38,7 @@ public class StoreInventory {
     }
     
     // Returns a master list of all inventory items at once
-    public ArrayList<Buyable> getFullInventoryList()
-    {
+    public ArrayList<Buyable> getFullInventoryList() {
         ArrayList<Buyable> fullInventory = new ArrayList<Buyable>();
         fullInventory.addAll(clothesForSale);
         fullInventory.addAll(foodForSale);
@@ -75,8 +73,7 @@ public class StoreInventory {
     }
     
     
-    public void removeItemFromInventory(Buyable item)
-    {
+    public void removeItemFromInventory(Buyable item) {
         if(item instanceof BuyableClothing)
         {
             clothesForSale.remove((BuyableClothing)item);
@@ -91,8 +88,7 @@ public class StoreInventory {
         }
     }
     
-    public void restockItemToInventory(Buyable item)
-    {
+    public void restockItemToInventory(Buyable item) {
         if(item instanceof BuyableClothing)
         {
             clothesForSale.add((BuyableClothing)item);
@@ -108,8 +104,7 @@ public class StoreInventory {
     }
     
     // Methods to populate the inventory
-    private void populateClothesInventory()
-    {
+    private void populateClothesInventory() {
         // Master list of all clothes held in the store on opening
         
         // Hoodies
@@ -131,8 +126,7 @@ public class StoreInventory {
         addMultiple(gloves, 3);
     }
     
-    private void populateFoodInventory()
-    {
+    private void populateFoodInventory() {
         // Master list of all food held in the store on opening
         
         // Perishables
@@ -150,13 +144,10 @@ public class StoreInventory {
         foodForSale.add(noodles);
         BuyableFood rice = new BuyableFood(7.99, "Rice", 2000);
         addMultiple(rice, 5);
-        
     }
     
-    private void populateGamesInventory()
-    {
+    private void populateGamesInventory() {
         // Master list of all games held in the store on opening
-        
         // Board games
         BuyableGame monopoly = new BuyableGame(19.99, "Monopoly", 4, "Board Game");
         gamesForSale.add(monopoly);
@@ -190,8 +181,7 @@ public class StoreInventory {
     }
     
     // Helper method to add multiple copies of the same item to the inventory at once
-    private void addMultiple(Buyable item, int numberToAdd)
-    {
+    private void addMultiple(Buyable item, int numberToAdd) {
         if(item instanceof BuyableClothing)
         {
             for(int i = 0; i < numberToAdd; i++)
