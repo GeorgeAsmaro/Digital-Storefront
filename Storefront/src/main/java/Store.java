@@ -98,6 +98,30 @@ public class Store {
                         System.exit(0);
                     }
 
+                    case 8 -> {
+                        Buyable itemToBuy = null;
+                        returnItemFromInventoryToStore(itemToBuy);
+
+                        System.out.println("Please type in the name of the item you wish to return");
+
+                        String itemName = input.nextLine();
+
+                        reviewMyInventory();
+
+                        for(int i = 0; i < myStuff.size(); i++)
+                        {
+                            String item = (myStuff.get(i).getItemName());
+                            if(item.equals(itemName.toLowerCase())) {
+                                returnItemFromInventoryToStore(itemToBuy);
+                            }
+
+                        }
+
+
+                    }
+
+
+
                     default -> System.out.println("Incorrect input. Choose again!");
                 }
             }
@@ -284,6 +308,7 @@ public class Store {
         while(!finished) {
             try {
                 myBankAccount.balanceReport();
+
 
                 System.out.println("\n1. Deposit          2. Withdraw");
                 System.out.println("\n-Press any other number to go back-");
@@ -485,6 +510,49 @@ public class Store {
     {
         storeInventory.restockItemToInventory(item);
         myShoppingCart.remove(item);
+    }
+
+    private void returnItemFromInventoryToStore(Buyable item) {
+        System.out.println("What item would you like to return?");
+        String itemToReturn = input.nextLine();
+
+        if(itemToReturn.equals(mostRecentPurchase)) {
+            double itemPrice = item.getPrice();
+            myBankAccount.depositMoney(itemPrice);
+            storeInventory.restockItemToInventory(item);
+            myStuff.remove(item);
+
+            String temp1 = secondMostRecentPurchase;
+            mostRecentPurchase = temp1;
+            secondMostRecentPurchase = thirdMostRecentPurchase;
+            thirdMostRecentPurchase = "";
+
+        }
+        else if(itemToReturn.equals(secondMostRecentPurchase)) {
+            double itemPrice = item.getPrice();
+            myBankAccount.depositMoney(itemPrice);
+            storeInventory.restockItemToInventory(item);
+            myStuff.remove(item);
+
+            String temp1 = secondMostRecentPurchase;
+            mostRecentPurchase = temp1;
+            secondMostRecentPurchase = thirdMostRecentPurchase;
+            thirdMostRecentPurchase = "";
+        }
+        else if(itemToReturn.equals(thirdMostRecentPurchase)) {
+            double itemPrice = item.getPrice();
+            myBankAccount.depositMoney(itemPrice);
+            storeInventory.restockItemToInventory(item);
+            myStuff.remove(item);
+
+            String temp1 = secondMostRecentPurchase;
+            mostRecentPurchase = temp1;
+            secondMostRecentPurchase = thirdMostRecentPurchase;
+            thirdMostRecentPurchase = "";
+        }
+        else {
+            System.out.println("This item isn't one of your 3 most recent purchases...");
+        }
     }
     
 
