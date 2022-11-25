@@ -221,6 +221,13 @@ public class Store {
                 if(itemToBuy != null)
                 {
                     System.out.println("We have " + itemToBuy.getItemName() + " in stock!");
+                    System.out.println();
+                    System.out.println("Item: " + itemToBuy.getItemName());
+                    System.out.println("Category: " + itemToBuy.getItemCategory());
+                    System.out.println("Price: $" + itemToBuy.getPrice());
+                    System.out.println();
+
+
                     System.out.println("Type 1 to BUY NOW or 2 to PLACE IN YOUR SHOPPING CART.");
 
                     int userInput = input.nextInt();
@@ -263,9 +270,9 @@ public class Store {
         System.out.println("Here is a list of the items you now own: ");
         for(int i = 0; i < myStuff.size(); i++)
         {
-                    System.out.print(i+1 + ". ");
-                    System.out.print(myStuff.get(i).getItemName() + " [" + numOfOne + "]");
-                    System.out.println("");
+            System.out.print(i+1 + ". ");
+            System.out.print(myStuff.get(i).getItemName() + " [" + numOfOne + "]");
+            System.out.println("");
         }
         viewRecentPurchases();
     }
@@ -395,6 +402,11 @@ public class Store {
             {
                 if(itemInCart.getItemName().toLowerCase().equals(userChoice.toLowerCase()))
                 {
+                    System.out.println();
+                    System.out.println("Item: " + itemInCart.getItemName());
+                    System.out.println("Category: " + itemInCart.getItemCategory());
+                    System.out.println("Price: $" + itemInCart.getPrice());
+                    System.out.println();
                     makePurchaseFromShoppingCart(itemInCart);
                     break;
 
