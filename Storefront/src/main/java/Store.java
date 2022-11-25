@@ -395,40 +395,6 @@ public class Store {
             {
                 if(itemInCart.getItemName().toLowerCase().equals(userChoice.toLowerCase()))
                 {
-                    if(mostRecentPurchase.equals("")) {
-                        mostRecentPurchase = itemInCart.getItemName();
-                        recentPurchaseMade = true;
-                    }
-                    else if(!mostRecentPurchase.equals("") && secondMostRecentPurchase.equals("")) {
-                        secondMostRecentPurchase = mostRecentPurchase;
-                        mostRecentPurchase = itemInCart.getItemName();
-
-                    }
-                    else if(!mostRecentPurchase.equals("") && !secondMostRecentPurchase.equals("") && thirdMostRecentPurchase.equals("")) {
-                        String temp1;
-                        String temp2;
-                        temp1 = mostRecentPurchase;
-                        temp2 = secondMostRecentPurchase;
-
-                        secondMostRecentPurchase = temp1;
-                        thirdMostRecentPurchase = temp2;
-                        mostRecentPurchase = itemInCart.getItemName();
-                    }
-                    else if(!mostRecentPurchase.equals("") && !secondMostRecentPurchase.equals("") && !thirdMostRecentPurchase.equals("")) {
-                        String tempOne;
-                        String tempTwo;
-
-                        tempOne = mostRecentPurchase;
-                        tempTwo = secondMostRecentPurchase;
-
-                        secondMostRecentPurchase = tempOne;
-                        thirdMostRecentPurchase = tempTwo;
-
-                        mostRecentPurchase = itemInCart.getItemName();
-
-
-
-                    }
                     makePurchaseFromShoppingCart(itemInCart);
                     break;
 
@@ -592,6 +558,41 @@ public class Store {
                     System.out.println("Purchase complete! You now own " + item.getItemName());
                     myStuff.add(item);
                     myShoppingCart.remove(item);
+
+                    if(mostRecentPurchase.equals("")) {
+                        mostRecentPurchase = item.getItemName();
+                        recentPurchaseMade = true;
+                    }
+                    else if(!mostRecentPurchase.equals("") && secondMostRecentPurchase.equals("")) {
+                        secondMostRecentPurchase = mostRecentPurchase;
+                        mostRecentPurchase = item.getItemName();
+
+                    }
+                    else if(!mostRecentPurchase.equals("") && !secondMostRecentPurchase.equals("") && thirdMostRecentPurchase.equals("")) {
+                        String temp1;
+                        String temp2;
+                        temp1 = mostRecentPurchase;
+                        temp2 = secondMostRecentPurchase;
+
+                        secondMostRecentPurchase = temp1;
+                        thirdMostRecentPurchase = temp2;
+                        mostRecentPurchase = item.getItemName();
+                    }
+                    else if(!mostRecentPurchase.equals("") && !secondMostRecentPurchase.equals("") && !thirdMostRecentPurchase.equals("")) {
+                        String tempOne;
+                        String tempTwo;
+
+                        tempOne = mostRecentPurchase;
+                        tempTwo = secondMostRecentPurchase;
+
+                        secondMostRecentPurchase = tempOne;
+                        thirdMostRecentPurchase = tempTwo;
+
+                        mostRecentPurchase = item.getItemName();
+
+
+
+                    }
                 }
                 catch(ConcurrentModificationException exception) {
                     System.out.println("Error! Try again.");
