@@ -46,8 +46,6 @@ public class Store {
                 int depositAmount = input.nextInt();
                 myBankAccount = new BankAccount(depositAmount);
                 moneyChosen = true;
-
-
             }
             catch(InputMismatchException exception) {
                 input.nextLine();
@@ -109,14 +107,8 @@ public class Store {
                             if(item.equals(itemName.toLowerCase())) {
                                 returnItemFromInventoryToStore(itemToBuy);
                             }
-
                         }
-
-
                     }
-
-
-
                     default -> System.out.println("Incorrect input. Choose again!");
                 }
             }
@@ -182,9 +174,7 @@ public class Store {
                         finished = true;
                     }
 
-                    default -> {
-                        System.out.println("Invalid Input...");
-                    }
+                    default -> System.out.println("Invalid Input...");
                 }
             }
             catch(InputMismatchException exception) {
@@ -274,6 +264,7 @@ public class Store {
             System.out.print(myStuff.get(i).getItemName() + " [" + numOfOne + "]");
             System.out.println("");
         }
+
         viewRecentPurchases();
     }
 
@@ -301,7 +292,6 @@ public class Store {
             try {
                 myBankAccount.balanceReport();
 
-
                 System.out.println("\n1. Deposit          2. Withdraw");
                 System.out.println("\n-Press any other number to go back-");
                 int depOrWith = input.nextInt();
@@ -324,8 +314,6 @@ public class Store {
                             finished = true;
                         }
                     }
-
-
                 }
                 else {
                     finished = true;
@@ -351,8 +339,6 @@ public class Store {
                     for(Buyable item: myShoppingCart)
                     {
                         System.out.println("" + item.getItemName());
-
-
                     }
                     System.out.println("Press 1 if you would like to purchase any held items, press 2 if you would like to remove any items from your shopping cart, and press any other key for neither");
 
@@ -409,7 +395,6 @@ public class Store {
                     System.out.println();
                     makePurchaseFromShoppingCart(itemInCart);
                     break;
-
                 }
                 else
                 {
@@ -434,11 +419,9 @@ public class Store {
                 {
                     if(cartItem.getItemName().toLowerCase().equals(userChoice.toLowerCase()))
                     {
-
                         myShoppingCart.remove(item);
                         System.out.println("You have removed " + cartItem.getItemName() + " from your shopping cart.");
                         finished = true;
-
                     }
                     else
                     {
@@ -479,7 +462,6 @@ public class Store {
             mostRecentPurchase = temp1;
             secondMostRecentPurchase = thirdMostRecentPurchase;
             thirdMostRecentPurchase = "";
-
         }
         else if(itemToReturn.equals(secondMostRecentPurchase)) {
             double itemPrice = item.getPrice();
@@ -524,7 +506,6 @@ public class Store {
                 else if(!mostRecentPurchase.equals("") && secondMostRecentPurchase.equals("")) {
                     secondMostRecentPurchase = mostRecentPurchase;
                     mostRecentPurchase = item.getItemName();
-
                 }
                 else if(!mostRecentPurchase.equals("") && !secondMostRecentPurchase.equals("") && thirdMostRecentPurchase.equals("")) {
                     String temp1;
@@ -547,9 +528,6 @@ public class Store {
                     thirdMostRecentPurchase = tempTwo;
 
                     mostRecentPurchase = item.getItemName();
-
-
-
                 }
                 storeInventory.removeItemFromInventory(item);
             }
@@ -578,7 +556,6 @@ public class Store {
                     else if(!mostRecentPurchase.equals("") && secondMostRecentPurchase.equals("")) {
                         secondMostRecentPurchase = mostRecentPurchase;
                         mostRecentPurchase = item.getItemName();
-
                     }
                     else if(!mostRecentPurchase.equals("") && !secondMostRecentPurchase.equals("") && thirdMostRecentPurchase.equals("")) {
                         String temp1;
@@ -601,9 +578,6 @@ public class Store {
                         thirdMostRecentPurchase = tempTwo;
 
                         mostRecentPurchase = item.getItemName();
-
-
-
                     }
                 }
                 catch(ConcurrentModificationException exception) {
