@@ -141,7 +141,6 @@ public class Store {
                         }
                         finished = true;
                     }
-
                     case 2 -> {
                         for(Buyable item: storeInventory.getFoodList())
                         {
@@ -149,7 +148,6 @@ public class Store {
                         }
                         finished = true;
                     }
-
                     case 3 -> {
                         for(Buyable item: storeInventory.getGamesList())
                         {
@@ -157,7 +155,6 @@ public class Store {
                         }
                         finished = true;
                     }
-
                     case 4 -> {
                         for(Buyable item: storeInventory.getElectronicsList())
                         {
@@ -165,7 +162,6 @@ public class Store {
                         }
                         finished = true;
                     }
-
                     case 5 -> {
                         for(Buyable item: storeInventory.getFullInventoryList())
                         {
@@ -173,7 +169,6 @@ public class Store {
                         }
                         finished = true;
                     }
-
                     default -> System.out.println("Invalid Input...");
                 }
             }
@@ -206,7 +201,6 @@ public class Store {
                         break;
                     }
                 }
-
                 // If a suitable item was found, give them the option to buy it!
                 if(itemToBuy != null)
                 {
@@ -216,8 +210,6 @@ public class Store {
                     System.out.println("Category: " + itemToBuy.getItemCategory());
                     System.out.println("Price: $" + itemToBuy.getPrice());
                     System.out.println();
-
-
                     System.out.println("Type 1 to BUY NOW or 2 to PLACE IN YOUR SHOPPING CART.");
 
                     int userInput = input.nextInt();
@@ -239,7 +231,6 @@ public class Store {
                         System.out.println("Incorrect input. Purchase cancelled.");
                         finished = true;
                     }
-
                 }
                 else // No suitable item found
                 {
@@ -264,7 +255,6 @@ public class Store {
             System.out.print(myStuff.get(i).getItemName() + " [" + numOfOne + "]");
             System.out.println("");
         }
-
         viewRecentPurchases();
     }
 
@@ -365,7 +355,6 @@ public class Store {
                         System.out.println("Leaving shopping cart as is and returning to the storefront ... ");
                         finished = true;
                     }
-
                 }
                 else
                 {
@@ -583,9 +572,7 @@ public class Store {
                 catch(ConcurrentModificationException exception) {
                     System.out.println("Error! Try again.");
                 }
-
             }
-
         }
         else
         {
