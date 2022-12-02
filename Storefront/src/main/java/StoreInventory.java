@@ -84,7 +84,10 @@ public class StoreInventory {
         }
         else if(item instanceof BuyableGame)
         {
-            foodForSale.remove((BuyableGame)item);
+            gamesForSale.remove((BuyableGame)item);
+        }
+        else if(item instanceof  BuyableElectronics) {
+            electronicsForSale.remove((BuyableElectronics)item);
         }
     }
     
@@ -99,8 +102,11 @@ public class StoreInventory {
         }
         else if(item instanceof BuyableGame)
         {
-            foodForSale.remove((BuyableGame)item);
-        }       
+            gamesForSale.remove((BuyableGame)item);
+        }
+        else if(item instanceof BuyableElectronics) {
+            electronicsForSale.add((BuyableElectronics)item);
+        }
     }
     
     // Methods to populate the inventory

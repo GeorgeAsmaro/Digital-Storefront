@@ -66,7 +66,7 @@ public class Store {
                 System.out.println("3. View your cart of held items");
                 System.out.println("4. Review the items you already own");
                 System.out.println("5. View the status of your financials");
-                System.out.println("6. YOUR CUSTOM IDEA HERE??");
+                System.out.println("6. Return a recently purchased items");
                 System.out.println("7. Exit program");
 
                 int userInput = input.nextInt();
@@ -83,7 +83,26 @@ public class Store {
 
                     case 5 -> reviewFinancials();
 
-                    case 6 -> System.out.println("YOUR CONTENT HERE! :) :)");
+                    case 6 -> {
+                        Buyable itemToBuy = null;
+
+                        System.out.println("Please type in the name of the item you wish to return");
+
+                        String itemName = input.nextLine();
+
+                        try {
+                            for(Buyable item: myStuff) {
+                                if(item.getItemName().toLowerCase().equals(itemName.toLowerCase())) {
+                                    itemToBuy = item;
+                                    returnItemFromInventoryToStore(itemToBuy);
+                                    break;
+                                }
+
+                            }
+                        }
+                        catch(ConcurrentModificationException ignored) {
+                        }
+                    }
 
                     case 7 -> {
                         System.out.println("Thanks for shopping! Now exiting program ... ");
@@ -91,24 +110,7 @@ public class Store {
                         System.exit(0);
                     }
 
-                    case 8 -> {
-                        Buyable itemToBuy = null;
-                        returnItemFromInventoryToStore(itemToBuy);
 
-                        System.out.println("Please type in the name of the item you wish to return");
-
-                        String itemName = input.nextLine();
-
-                        reviewMyInventory();
-
-                        for(int i = 0; i < myStuff.size(); i++)
-                        {
-                            String item = (myStuff.get(i).getItemName());
-                            if(item.equals(itemName.toLowerCase())) {
-                                returnItemFromInventoryToStore(itemToBuy);
-                            }
-                        }
-                    }
                     default -> System.out.println("Incorrect input. Choose again!");
                 }
             }
@@ -403,21 +405,27 @@ public class Store {
                 System.out.println("Which item would you like to remove from your shopping cart?");
 
                 String userChoice = input.nextLine();
-
-                for(Buyable cartItem: myShoppingCart)
-                {
-                    if(cartItem.getItemName().toLowerCase().equals(userChoice.toLowerCase()))
+                try {
+                    for(Buyable cartItem: myShoppingCart)
                     {
-                        myShoppingCart.remove(item);
-                        System.out.println("You have removed " + cartItem.getItemName() + " from your shopping cart.");
-                        finished = true;
-                    }
-                    else
-                    {
-                        System.out.println("Item could not be found in your shopping cart.");
-                        finished = true;
+                        if(cartItem.getItemName().toLowerCase().equals(userChoice.toLowerCase()))
+                        {
+                            myShoppingCart.remove(item);
+                            System.out.println("You have removed " + cartItem.getItemName() + " from your shopping cart.");
+                            storeInventory.restockItemToInventory(item);
+                            finished = true;
+                        }
+                        else
+                        {
+                            System.out.println("Item could not be found in your shopping cart.");
+                            finished = true;
+                        }
                     }
                 }
+                catch(ConcurrentModificationException exception) {
+
+                }
+
             }
             catch(InputMismatchException exception) {
                 input.nextLine();
@@ -438,10 +446,7 @@ public class Store {
     }
 
     private void returnItemFromInventoryToStore(Buyable item) {
-        System.out.println("What item would you like to return?");
-        String itemToReturn = input.nextLine();
-
-        if(itemToReturn.equals(mostRecentPurchase)) {
+        if(item.getItemName().toLowerCase().equals(mostRecentPurchase.toLowerCase())) {
             double itemPrice = item.getPrice();
             myBankAccount.depositMoney(itemPrice);
             storeInventory.restockItemToInventory(item);
@@ -451,19 +456,27 @@ public class Store {
             mostRecentPurchase = temp1;
             secondMostRecentPurchase = thirdMostRecentPurchase;
             thirdMostRecentPurchase = "";
+
+            if(mostRecentPurchase.equals("") && secondMostRecentPurchase.equals("") && thirdMostRecentPurchase.equals("")) {
+                recentPurchaseMade = false;
+            }
         }
-        else if(itemToReturn.equals(secondMostRecentPurchase)) {
+        else if(item.getItemName().toLowerCase().equals(secondMostRecentPurchase.toLowerCase())) {
             double itemPrice = item.getPrice();
             myBankAccount.depositMoney(itemPrice);
             storeInventory.restockItemToInventory(item);
             myStuff.remove(item);
 
-            String temp1 = secondMostRecentPurchase;
-            mostRecentPurchase = temp1;
+            //String temp1 = secondMostRecentPurchase;
+            //mostRecentPurchase = temp1;
             secondMostRecentPurchase = thirdMostRecentPurchase;
             thirdMostRecentPurchase = "";
+
+            if(mostRecentPurchase.equals("") && secondMostRecentPurchase.equals("") && thirdMostRecentPurchase.equals("")) {
+                recentPurchaseMade = false;
+            }
         }
-        else if(itemToReturn.equals(thirdMostRecentPurchase)) {
+        else if(item.getItemName().toLowerCase().equals(thirdMostRecentPurchase.toLowerCase())) {
             double itemPrice = item.getPrice();
             myBankAccount.depositMoney(itemPrice);
             storeInventory.restockItemToInventory(item);
@@ -473,6 +486,10 @@ public class Store {
             mostRecentPurchase = temp1;
             secondMostRecentPurchase = thirdMostRecentPurchase;
             thirdMostRecentPurchase = "";
+
+            if(mostRecentPurchase.equals("") && secondMostRecentPurchase.equals("") && thirdMostRecentPurchase.equals("")) {
+                recentPurchaseMade = false;
+            }
         }
         else {
             System.out.println("This item isn't one of your 3 most recent purchases...");
