@@ -166,7 +166,7 @@ public class StoreInventory {
         BuyableGame forza = new BuyableGame(59.99, "Forza", 2, "Video Game");
         gamesForSale.add(forza);
         BuyableGame eldenRing = new BuyableGame(79.99,"Elden Ring",1,"Video Game");
-        gamesForSale.add(eldenRing);
+        addMultiple(eldenRing,3);
     }
 
     private void populateElectronicsInventory() {
@@ -205,10 +205,15 @@ public class StoreInventory {
         }
         else if(item instanceof BuyableGame)
         {
-             for(int i = 0; i < numberToAdd; i++)
+            for(int i = 0; i < numberToAdd; i++)
             {
                 gamesForSale.add((BuyableGame)item);
             }           
+        }
+        else if(item instanceof  BuyableElectronics) {
+            for(int i = 0; i < numberToAdd; i++) {
+                electronicsForSale.add((BuyableElectronics)item);
+            }
         }
     }
 }
