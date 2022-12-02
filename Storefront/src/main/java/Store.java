@@ -66,7 +66,7 @@ public class Store {
                 System.out.println("3. View your cart of held items");
                 System.out.println("4. Review the items you already own");
                 System.out.println("5. View the status of your financials");
-                System.out.println("6. Return a recently purchased items");
+                System.out.println("6. Return recently purchased items");
                 System.out.println("7. Exit program");
 
                 int userInput = input.nextInt();
@@ -83,26 +83,7 @@ public class Store {
 
                     case 5 -> reviewFinancials();
 
-                    case 6 -> {
-                        Buyable itemToBuy = null;
-
-                        System.out.println("Please type in the name of the item you wish to return");
-
-                        String itemName = input.nextLine();
-
-                        try {
-                            for(Buyable item: myStuff) {
-                                if(item.getItemName().toLowerCase().equals(itemName.toLowerCase())) {
-                                    itemToBuy = item;
-                                    returnItemFromInventoryToStore(itemToBuy);
-                                    break;
-                                }
-
-                            }
-                        }
-                        catch(ConcurrentModificationException ignored) {
-                        }
-                    }
+                    case 6 -> returnItem();
 
                     case 7 -> {
                         System.out.println("Thanks for shopping! Now exiting program ... ");
@@ -180,7 +161,27 @@ public class Store {
             }
         }
     }
-    
+
+    private void returnItem() {
+        Buyable itemToBuy = null;
+
+        System.out.println("Please type in the name of the item you wish to return");
+
+        String itemName = input.nextLine();
+
+        try {
+            for(Buyable item: myStuff) {
+                if(item.getItemName().toLowerCase().equals(itemName.toLowerCase())) {
+                    itemToBuy = item;
+                    returnItemFromInventoryToStore(itemToBuy);
+                    break;
+                }
+
+            }
+        }
+        catch(ConcurrentModificationException ignored) {
+        }
+    }
     private void buyItem() {
         boolean finished = false;
         while(!finished) {

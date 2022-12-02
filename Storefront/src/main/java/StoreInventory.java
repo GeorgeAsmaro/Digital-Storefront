@@ -171,7 +171,7 @@ public class StoreInventory {
 
     private void populateElectronicsInventory() {
         BuyableElectronics iPhone = new BuyableElectronics(999, "iPhone 14", "Apple");
-        electronicsForSale.add(iPhone);
+        addMultiple(iPhone,2);
 
         BuyableElectronics S20 = new BuyableElectronics(799, "Galaxy S20", "Samsung");
         electronicsForSale.add(S20);
