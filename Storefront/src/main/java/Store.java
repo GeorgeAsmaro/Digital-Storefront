@@ -169,6 +169,7 @@ public class Store {
 
         String itemName = input.nextLine();
 
+        //If the item name inputted is a real item available, execute the return item from inventory to store method
         try {
             for(Buyable item: myStuff) {
                 if(item.getItemName().toLowerCase().equals(itemName.toLowerCase())) {
@@ -207,6 +208,7 @@ public class Store {
                 // If a suitable item was found, give them the option to buy it!
                 if(itemToBuy != null)
                 {
+                    //Lists the details of the item inputted as long as it's available
                     System.out.println("We have " + itemToBuy.getItemName() + " in stock!");
                     System.out.println();
                     System.out.println("Item: " + itemToBuy.getItemName());
@@ -262,18 +264,20 @@ public class Store {
     }
 
     private void viewRecentPurchases() {
+        //If a recent purchase is made, then print out the most recent purchase
         if(recentPurchaseMade) {
             System.out.println();
             System.out.println("Most recent purchase: " + mostRecentPurchase);
-
+            //If the second most recent purchase has a value, then print it out too
             if(!secondMostRecentPurchase.equals("")) {
                 System.out.println("Second most recent purchase: " + secondMostRecentPurchase);
             }
-
+            //If the third most recent purchase has a value, then print it out too
             if(!thirdMostRecentPurchase.equals("")) {
                 System.out.println("Third most recent purchase: " + thirdMostRecentPurchase);
             }
         }
+        //Otherwise, no purchases have been made
         else {
             System.out.println("No purchases made.");
         }
@@ -284,7 +288,7 @@ public class Store {
         while(!finished) {
             try {
                 myBankAccount.balanceReport();
-
+                //If the user presses 1, they can deposit a positive integer of the number listed
                 System.out.println("\n1. Deposit          2. Withdraw");
                 System.out.println("\n-Press any other number to go back-");
                 int depOrWith = input.nextInt();
@@ -296,6 +300,7 @@ public class Store {
                     myBankAccount.depositMoney(Math.abs(numDeposit));
                     finished = true;
                 }
+                //If the user presses 2, they can withdraw a positive integer by the number listed as long as you can afford it
                 else if (depOrWith == 2) {
                     System.out.println("How much would you like to withdraw?");
                     int withdrawNum = input.nextInt();
@@ -328,11 +333,13 @@ public class Store {
                 //Buyable item = null;
                 if(!myShoppingCart.isEmpty())
                 {
+                    //Prints every item in the shopping cart
                     System.out.println("Here are all of the items being held in your shopping cart: ");
                     for(Buyable item: myShoppingCart)
                     {
                         System.out.println("" + item.getItemName());
                     }
+                    //If 1 is pressed, you can purchase any items in the shopping cart, if 2, you can remove any in shopping cart, and press anything else to go back
                     System.out.println("Press 1 if you would like to purchase any held items, press 2 if you would like to remove any items from your shopping cart, and press any other key for neither");
 
                     String userInput = input.nextLine();
@@ -378,6 +385,7 @@ public class Store {
 
             for(Buyable itemInCart: myShoppingCart)
             {
+                //If the item named is a real item available, then list the item and it's details
                 if(itemInCart.getItemName().toLowerCase().equals(userChoice.toLowerCase()))
                 {
                     System.out.println();
@@ -388,8 +396,8 @@ public class Store {
                     makePurchaseFromShoppingCart(itemInCart);
                     break;
                 }
-                else
-                {
+                //Otherwise the item couldn't be found
+                else {
                     System.out.println("Item could not be found in shopping cart.");
                 }
             }
@@ -401,7 +409,9 @@ public class Store {
     
     private void removeItemFromShoppingCart(Buyable item) {
         boolean finished = false;
+        //While finished is false
         while(!finished) {
+            //Ask for the item that needs to be removed
             try {
                 System.out.println("Which item would you like to remove from your shopping cart?");
 
@@ -409,6 +419,7 @@ public class Store {
                 try {
                     for(Buyable cartItem: myShoppingCart)
                     {
+                        //If the item named is actually in the shopping cart, remove it from the shopping cart and restock it to the store's inventory
                         if(cartItem.getItemName().toLowerCase().equals(userChoice.toLowerCase()))
                         {
                             myShoppingCart.remove(item);
@@ -416,8 +427,8 @@ public class Store {
                             storeInventory.restockItemToInventory(item);
                             finished = true;
                         }
-                        else
-                        {
+                        //Otherwise the item named couldn't be found in the shopping cart
+                        else {
                             System.out.println("Item could not be found in your shopping cart.");
                             finished = true;
                         }
@@ -502,18 +513,22 @@ public class Store {
         // If you can afford the item, buy it and remove it from the store
         if(myBankAccount.canAfford(item.getPrice()))
         {
+            //Check the password first to make sure the user inputs the correct password
             if(myBankAccount.checkPassword()) {
                 myBankAccount.makePurchase(item.getPrice());
                 System.out.println("Purchase complete! You now own " + item.getItemName());
                 myStuff.add(item);
+                //If there is no most recent purchase, then the purchase just made is the most recent purchase
                 if(mostRecentPurchase.equals("")) {
                     mostRecentPurchase = item.getItemName();
                     recentPurchaseMade = true;
                 }
+                //If there is a most recent purchase but not a second, then the purchase made is the second most recent
                 else if(!mostRecentPurchase.equals("") && secondMostRecentPurchase.equals("")) {
                     secondMostRecentPurchase = mostRecentPurchase;
                     mostRecentPurchase = item.getItemName();
                 }
+                //If there is a most recent and second most recent, then the purchase is the 3rd most recent
                 else if(!mostRecentPurchase.equals("") && !secondMostRecentPurchase.equals("") && thirdMostRecentPurchase.equals("")) {
                     String temp1;
                     String temp2;
@@ -524,6 +539,7 @@ public class Store {
                     thirdMostRecentPurchase = temp2;
                     mostRecentPurchase = item.getItemName();
                 }
+                //If all are there, then shift the most recent to 2nd, 2nd to third, third gone and the newest purchase as the most
                 else if(!mostRecentPurchase.equals("") && !secondMostRecentPurchase.equals("") && !thirdMostRecentPurchase.equals("")) {
                     String tempOne;
                     String tempTwo;
@@ -536,9 +552,11 @@ public class Store {
 
                     mostRecentPurchase = item.getItemName();
                 }
+                //Remove the item from the inventory
                 storeInventory.removeItemFromInventory(item);
             }
         }
+        //Otherwise the user can't afford the item
         else
         {
             System.out.println("You can't afford that item ... ");
@@ -549,21 +567,24 @@ public class Store {
         // If you can afford the item, buy it and remove it from the store
         if(myBankAccount.canAfford(item.getPrice()))
         {
+            //Check the password first
             if(myBankAccount.checkPassword()) {
                 try {
                     myBankAccount.makePurchase(item.getPrice());
                     System.out.println("Purchase complete! You now own " + item.getItemName());
                     myStuff.add(item);
                     myShoppingCart.remove(item);
-
+                    //If there is no most recent purchase, then the purchase just made is the most recent purchase
                     if(mostRecentPurchase.equals("")) {
                         mostRecentPurchase = item.getItemName();
                         recentPurchaseMade = true;
                     }
+                    //If there is a most recent purchase but not a second, then the purchase made is the second most recent
                     else if(!mostRecentPurchase.equals("") && secondMostRecentPurchase.equals("")) {
                         secondMostRecentPurchase = mostRecentPurchase;
                         mostRecentPurchase = item.getItemName();
                     }
+                    //If there is a most recent and second most recent, then the purchase is the 3rd most recent
                     else if(!mostRecentPurchase.equals("") && !secondMostRecentPurchase.equals("") && thirdMostRecentPurchase.equals("")) {
                         String temp1;
                         String temp2;
@@ -574,6 +595,7 @@ public class Store {
                         thirdMostRecentPurchase = temp2;
                         mostRecentPurchase = item.getItemName();
                     }
+                    //If all are there, then shift the most recent to 2nd, 2nd to third, third gone and the newest purchase as the most
                     else if(!mostRecentPurchase.equals("") && !secondMostRecentPurchase.equals("") && !thirdMostRecentPurchase.equals("")) {
                         String tempOne;
                         String tempTwo;
@@ -592,8 +614,8 @@ public class Store {
                 }
             }
         }
-        else
-        {
+        //Otherwise, the user can't afford the item
+        else {
             System.out.println("You can't afford that item ... ");
         }        
     }
