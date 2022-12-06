@@ -252,13 +252,63 @@ public class Store {
     
 
     private void reviewMyInventory() {
-        int numOfOne = 1;
-        System.out.println("Here is a list of the items you now own: ");
+        System.out.println("What items are you looking for?\n");
+
+        System.out.println("1. Clothing");
+        System.out.println("2. Food");
+        System.out.println("3. Games");
+        System.out.println("4. Electronics");
+        System.out.println("5. All available items");
+
+        int numChosen = input.nextInt();
+
+        System.out.println("Here is a list of the items you now own in the category chosen: ");
         for(int i = 0; i < myStuff.size(); i++)
         {
-            System.out.print(i+1 + ". ");
-            System.out.print(myStuff.get(i).getItemName() + " [" + numOfOne + "]");
-            System.out.println("");
+            if(numChosen == 1) {
+                if(myStuff.get(i).getItemCategory().equals("Clothing")) {
+                    System.out.print(myStuff.get(i).getItemName());
+                    System.out.println("");
+                }
+                else {
+                    System.out.println("\nYou don't have any clothing items in your inventory");
+                }
+            }
+            else if(numChosen == 2) {
+                if(myStuff.get(i).getItemCategory().equals("Food")) {
+                    System.out.print(myStuff.get(i).getItemName());
+                    System.out.println("");
+                }
+                else {
+                    System.out.println("\nYou don't have any food items in your inventory");
+                }
+            }
+
+            else if(numChosen == 3) {
+                if(myStuff.get(i).getItemCategory().equals("Game")) {
+                    System.out.print(myStuff.get(i).getItemName());
+                    System.out.println("");
+                }
+                else {
+                    System.out.println("\nYou don't have any Games in your inventory");
+                }
+            }
+
+            else if(numChosen == 4) {
+                if(myStuff.get(i).getItemCategory().equals("Electronics")) {
+                    System.out.print(myStuff.get(i).getItemName());
+                    System.out.println("");
+                }
+                else {
+
+                    System.out.println("\nYou don't have any electronic items in your inventory");
+                }
+            }
+            else if(numChosen == 5) {
+                System.out.print(myStuff.get(i).getItemName());
+                System.out.println("");
+            }
+
         }
         viewRecentPurchases();
     }
