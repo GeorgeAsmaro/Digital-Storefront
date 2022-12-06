@@ -262,7 +262,9 @@ public class Store {
 
         int numChosen = input.nextInt();
 
-        System.out.println("Here is a list of the items you now own in the category chosen: ");
+        if(recentPurchaseMade) {
+            System.out.println("Here is a list of the items you now own in the category chosen: ");
+        }
         for(int i = 0; i < myStuff.size(); i++)
         {
             if(numChosen == 1) {
