@@ -267,6 +267,7 @@ public class Store {
         }
         for(int i = 0; i < myStuff.size(); i++)
         {
+
             if(numChosen == 1) {
                 if(myStuff.get(i).getItemCategory().equals("Clothing")) {
                     System.out.print(myStuff.get(i).getItemName());
@@ -312,6 +313,23 @@ public class Store {
             }
 
         }
+
+
+        System.out.println("Print out the name of an item in your inventory if you would like to view the details about it, or press anything else to go back to the menu");
+        input.nextLine();
+        String next = input.nextLine();
+
+        for(Buyable item: myStuff) {
+            if(item.getItemName().toLowerCase().equals(next.toLowerCase())) {
+                System.out.println("Item: " + item.getItemName());
+                System.out.println("Category: " + item.getItemCategory());
+                System.out.println("Price: $" + item.getPrice());
+            }
+            else {
+                System.out.println("You don't own this item or this item doesn't exist");
+            }
+        }
+
         viewRecentPurchases();
     }
 
