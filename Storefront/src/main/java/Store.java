@@ -1,5 +1,6 @@
 
 import java.util.*;
+import java.util.Random;
 
 public class Store {
     Scanner input = new Scanner(System.in);
@@ -215,7 +216,7 @@ public class Store {
                     System.out.println("Category: " + itemToBuy.getItemCategory());
                     System.out.println("Price: $" + itemToBuy.getPrice());
                     System.out.println();
-                    System.out.println("Type 1 to BUY NOW or 2 to PLACE IN YOUR SHOPPING CART.");
+                    System.out.println("Type 1 to BUY NOW or 2 to PLACE IN YOUR SHOPPING CART or 3 to attempt to HAGGLE THE ITEM.");
 
                     int userInput = input.nextInt();
                     input.nextLine(); // buffer clear
@@ -229,6 +230,10 @@ public class Store {
                     {
                         System.out.println("We'll hold onto this item for you.");
                         moveItemToShoppingCart(itemToBuy);
+                        finished = true;
+                    }
+                    else if(userInput == 3) {
+                        haggleItem(itemToBuy);
                         finished = true;
                     }
                     else
@@ -251,6 +256,92 @@ public class Store {
     }
     
 
+    private void haggleItem(Buyable item) {
+        try {
+            Random rand = new Random();
+
+            System.out.println("The price of the item you are looking to buy is $" + item.getPrice() + ". How much would you like to haggle?");
+            System.out.println("1. 5% Discount (50% Chance)");
+            System.out.println("2. 15% Discount (25% Chance)");
+            System.out.println("3. 30% Discount (10% Chance)\n");
+
+            int numChosen = input.nextInt();
+
+            if(numChosen == 1) {
+                int y = 100;
+                int randomNum = rand.nextInt(y);
+
+                if(randomNum >= 0 && randomNum <= 50) {
+                    double discount = 1/1.05;
+                    System.out.println("Haggle Attempt Success\n");
+                    if(myBankAccount.canAfford(item.getPrice()))
+                    {
+                        //Check the password first to make sure the user inputs the correct password
+                        if(myBankAccount.checkPassword()) {
+                            double previousPrice = item.getPrice();
+                            myBankAccount.makePurchase(item.setPrice(item.getPrice() * discount));
+                            System.out.println("Purchase complete! You now own " + item.getItemName());
+                            myStuff.add(item);
+                            //If there is no most recent purchase, then the purchase just made is the most recent purchase
+                            if(mostRecentPurchase.equals("")) {
+                                mostRecentPurchase = item.getItemName();
+                                recentPurchaseMade = true;
+                            }
+                            //If there is a most recent purchase but not a second, then the purchase made is the second most recent
+                            else if(!mostRecentPurchase.equals("") && secondMostRecentPurchase.equals("")) {
+                                secondMostRecentPurchase = mostRecentPurchase;
+                                mostRecentPurchase = item.getItemName();
+                            }
+                            //If there is a most recent and second most recent, then the purchase is the 3rd most recent
+                            else if(!mostRecentPurchase.equals("") && !secondMostRecentPurchase.equals("") && thirdMostRecentPurchase.equals("")) {
+                                String temp1;
+                                String temp2;
+                                temp1 = mostRecentPurchase;
+                                temp2 = secondMostRecentPurchase;
+
+                                secondMostRecentPurchase = temp1;
+                                thirdMostRecentPurchase = temp2;
+                                mostRecentPurchase = item.getItemName();
+                            }
+                            //If all are there, then shift the most recent to 2nd, 2nd to third, third gone and the newest purchase as the most
+                            else if(!mostRecentPurchase.equals("") && !secondMostRecentPurchase.equals("") && !thirdMostRecentPurchase.equals("")) {
+                                String tempOne;
+                                String tempTwo;
+
+                                tempOne = mostRecentPurchase;
+                                tempTwo = secondMostRecentPurchase;
+
+                                secondMostRecentPurchase = tempOne;
+                                thirdMostRecentPurchase = tempTwo;
+
+                                mostRecentPurchase = item.getItemName();
+                            }
+                            //Remove the item from the inventory
+                            storeInventory.removeItemFromInventory(item);
+                        }
+                    }
+                    //Otherwise the user can't afford the item
+                    else
+                    {
+                        System.out.println("You can't afford that item ... ");
+                    }
+                }
+                else {
+                    System.out.println("Haggle attempt failed.");
+                }
+            }
+            else if(numChosen == 2) {
+
+            }
+            else if(numChosen == 3) {
+
+            }
+        }
+        catch(InputMismatchException exception) {
+            System.out.println("Invalid Input... returning to main menu");
+        }
+
+    }
     private void reviewMyInventory() {
         System.out.println("What items are you looking for?\n");
 

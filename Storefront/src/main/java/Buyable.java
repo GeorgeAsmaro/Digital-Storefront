@@ -17,8 +17,9 @@ public class Buyable {
         return price;
     }
 
-    public void setPrice(double price) {
+    public double setPrice(double price) {
         this.price = price;
+        return price;
     }
 
     public String getItemName() {
