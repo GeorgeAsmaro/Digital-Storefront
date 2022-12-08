@@ -363,9 +363,9 @@ public class Store {
                     System.out.println("Category: " + item.getItemCategory());
                     System.out.println("Price: $" + item.getPrice());
                 }
-//          else {
-//              System.out.println("You don't own this item or this item doesn't exist");
-//          }
+//              else {
+//                  System.out.println("You don't own this item or this item doesn't exist");
+//              }
             }
         }
 
