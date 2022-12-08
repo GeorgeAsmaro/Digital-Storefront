@@ -1,15 +1,16 @@
 
+import java.sql.SQLOutput;
 import java.util.*;
 import java.util.Random;
 
 public class Store {
     Scanner input = new Scanner(System.in);
-    
+
     // User data variables
     private BankAccount myBankAccount;
     private ArrayList<Buyable> myStuff;
     private ArrayList<Buyable> myShoppingCart;
-    
+
     // Store data variables
     private StoreInventory storeInventory;
 
@@ -20,45 +21,42 @@ public class Store {
     String mostRecentPurchase = "";
     String secondMostRecentPurchase = "";
     String thirdMostRecentPurchase = "";
-    
+
     public Store() {
         System.out.println("Welcome to my storefont!");
         setupAccounts();
         setupStore();
         presentShoppingMenu();
     }
-    
+
     private void setupAccounts() {
         setupBankAccount();
         myStuff = new ArrayList<Buyable>();
         myShoppingCart = new ArrayList<Buyable>();
     }
-    
-    private void setupStore()
-    {
+
+    private void setupStore() {
         storeInventory = new StoreInventory();
     }
 
     private void setupBankAccount() {
-        while(!moneyChosen) {
+        while (!moneyChosen) {
             try {
                 System.out.println("To begin, please set up a bank account.");
                 System.out.println("How much money should your account contain?");
                 int depositAmount = input.nextInt();
                 myBankAccount = new BankAccount(depositAmount);
                 moneyChosen = true;
-            }
-            catch(InputMismatchException exception) {
+            } catch (InputMismatchException exception) {
                 input.nextLine();
                 System.out.println("Invalid Input! Try again.");
             }
         }
     }
-    
+
     private void presentShoppingMenu() {
         boolean stillShopping = true;
-        while(stillShopping)
-        {
+        while (stillShopping) {
             try {
                 System.out.println("\n****************************************************** ");
                 System.out.println("Please choose from one of the following menu options: ");
@@ -73,7 +71,7 @@ public class Store {
                 int userInput = input.nextInt();
                 input.nextLine(); // buffer clear
 
-                switch(userInput){
+                switch (userInput) {
                     case 1 -> viewCatalog();
 
                     case 2 -> buyItem();
@@ -95,17 +93,16 @@ public class Store {
 
                     default -> System.out.println("Incorrect input. Choose again!");
                 }
-            }
-            catch(InputMismatchException exception) {
+            } catch (InputMismatchException exception) {
                 input.nextLine();
                 System.out.println("Incorrect input. Choose again!");
             }
         }
     }
-    
+
     private void viewCatalog() {
         boolean finished = false;
-        while(!finished) {
+        while (!finished) {
             try {
                 System.out.println("What items are you looking for?\n");
 
@@ -114,49 +111,48 @@ public class Store {
                 System.out.println("3. Games");
                 System.out.println("4. Electronics");
                 System.out.println("5. All available items");
+                System.out.println("6. Back to main menu");
 
                 int category = input.nextInt();
 
-                switch(category) {
+                switch (category) {
                     case 1 -> {
-                        for(Buyable item: storeInventory.getClothesList())
-                        {
+                        for (Buyable item : storeInventory.getClothesList()) {
                             System.out.println("" + item.getItemName());
                         }
                         finished = true;
                     }
                     case 2 -> {
-                        for(Buyable item: storeInventory.getFoodList())
-                        {
+                        for (Buyable item : storeInventory.getFoodList()) {
                             System.out.println("" + item.getItemName());
                         }
                         finished = true;
                     }
                     case 3 -> {
-                        for(Buyable item: storeInventory.getGamesList())
-                        {
+                        for (Buyable item : storeInventory.getGamesList()) {
                             System.out.println("" + item.getItemName());
+
                         }
                         finished = true;
                     }
                     case 4 -> {
-                        for(Buyable item: storeInventory.getElectronicsList())
-                        {
+                        for (Buyable item : storeInventory.getElectronicsList()) {
                             System.out.println("" + item.getItemName());
                         }
                         finished = true;
                     }
                     case 5 -> {
-                        for(Buyable item: storeInventory.getFullInventoryList())
-                        {
+                        for (Buyable item : storeInventory.getFullInventoryList()) {
                             System.out.println("" + item.getItemName());
                         }
                         finished = true;
                     }
+                    case 6 -> {
+                        finished = true;
+                    }
                     default -> System.out.println("Invalid Input...");
                 }
-            }
-            catch(InputMismatchException exception) {
+            } catch (InputMismatchException exception) {
                 input.nextLine();
                 System.out.println("Invalid Input! Try again");
             }
@@ -172,21 +168,21 @@ public class Store {
 
         //If the item name inputted is a real item available, execute the return item from inventory to store method
         try {
-            for(Buyable item: myStuff) {
-                if(item.getItemName().toLowerCase().equals(itemName.toLowerCase())) {
+            for (Buyable item : myStuff) {
+                if (item.getItemName().toLowerCase().equals(itemName.toLowerCase())) {
                     itemToBuy = item;
                     returnItemFromInventoryToStore(itemToBuy);
                     break;
                 }
 
             }
-        }
-        catch(ConcurrentModificationException ignored) {
+        } catch (ConcurrentModificationException ignored) {
         }
     }
+
     private void buyItem() {
         boolean finished = false;
-        while(!finished) {
+        while (!finished) {
             try {
                 System.out.println("Please type in the name of the item you wish to buy!");
 
@@ -198,17 +194,14 @@ public class Store {
 
                 // Look through the full inventory to see if the item is present
                 // Convert both item name and user input to lower case to prevent case issues!
-                for(Buyable item: storeInventory.getFullInventoryList())
-                {
-                    if(item.getItemName().toLowerCase().equals(itemName.toLowerCase()))
-                    {
+                for (Buyable item : storeInventory.getFullInventoryList()) {
+                    if (item.getItemName().toLowerCase().equals(itemName.toLowerCase())) {
                         itemToBuy = item;
                         break;
                     }
                 }
                 // If a suitable item was found, give them the option to buy it!
-                if(itemToBuy != null)
-                {
+                if (itemToBuy != null) {
                     //Lists the details of the item inputted as long as it's available
                     System.out.println("We have " + itemToBuy.getItemName() + " in stock!");
                     System.out.println();
@@ -221,40 +214,32 @@ public class Store {
                     int userInput = input.nextInt();
                     input.nextLine(); // buffer clear
 
-                    if(userInput == 1)
-                    {
+                    if (userInput == 1) {
                         makePurchaseFromStore(itemToBuy);
                         finished = true;
-                    }
-                    else if(userInput == 2)
-                    {
+                    } else if (userInput == 2) {
                         System.out.println("We'll hold onto this item for you.");
                         moveItemToShoppingCart(itemToBuy);
                         finished = true;
-                    }
-                    else if(userInput == 3) {
+                    } else if (userInput == 3) {
                         haggleItem(itemToBuy);
                         finished = true;
-                    }
-                    else
-                    {
+                    } else {
                         System.out.println("Incorrect input. Purchase cancelled.");
                         finished = true;
                     }
-                }
-                else // No suitable item found
+                } else // No suitable item found
                 {
                     System.out.println("The item you are looking for is sold out or does not exist, sorry!");
                     finished = true;
                 }
-            }
-            catch(InputMismatchException exception) {
+            } catch (InputMismatchException exception) {
                 input.nextLine();
                 System.out.println("Invalid Input! Try again");
             }
         }
     }
-    
+
 
     private void haggleItem(Buyable item) {
         try {
@@ -264,61 +249,63 @@ public class Store {
             System.out.println("1. 5% Discount (50% Chance)");
             System.out.println("2. 15% Discount (25% Chance)");
             System.out.println("3. 30% Discount (10% Chance)\n");
+            int failed = 0;
+            int y1 = 100;
+            int y2 = 100;
+            int y3 = 100;
+            int discount1Max = 50;
+            int chanceFor5 = 50;
+            int chanceFor15;
+            int chanceFor30;
 
             int numChosen = input.nextInt();
 
-            if(numChosen == 1) {
-                int y = 100;
-                int randomNum = rand.nextInt(y);
+            if (numChosen == 1) {
+                int randomNum = rand.nextInt(y1);
 
-                if(randomNum >= 0 && randomNum <= 50) {
-                    double discount = 1/1.05;
-                    item.setPrice(item.getPrice()*discount);
+                if (randomNum >= discount1Max) {
+                    double discount = 1 / 1.05;
+                    item.setPrice(item.getPrice() * discount);
                     System.out.println("Haggle Attempt Success\n");
                     makePurchaseFromStore(item);
-                }
-                else {
+                } else {
                     System.out.println("Haggle attempt failed.");
+                    failed++;
                 }
-            }
-            else if(numChosen == 2) {
-                int y = 100;
-                int randomNum = rand.nextInt(y);
+            } else if (numChosen == 2) {
 
-                if(randomNum >= 0 && randomNum <=25) {
-                    double discount = 1/1.15;
-                    item.setPrice(item.getPrice()*discount);
+                int randomNum = rand.nextInt(y2);
+
+                if (randomNum >= 0 && randomNum <= 25) {
+                    double discount = 1 / 1.15;
+                    item.setPrice(item.getPrice() * discount);
                     System.out.println("Haggle Attempt Success\n");
                     makePurchaseFromStore(item);
-                }
-                else {
+                } else {
                     System.out.println("Haggle attempt failed.");
                 }
 
-            }
-            else if(numChosen == 3) {
-                int y = 100;
-                int randomNum = rand.nextInt(y);
+            } else if (numChosen == 3) {
 
-                if(randomNum >= 0 && randomNum <=10) {
+                int randomNum = rand.nextInt(y3);
+
+                if (randomNum >= 0 && randomNum <= 10) {
                     double discount = 1 / 1.3;
                     item.setPrice(item.getPrice() * discount);
                     System.out.println("Haggle Attempt Success\n");
                     makePurchaseFromStore(item);
-                }
-                else {
+                } else {
                     System.out.println("Haggle attempt failed.");
                 }
-            }
-            else {
+            } else {
                 System.out.println("Incorrect input");
             }
-        }
-        catch(InputMismatchException exception) {
+        } catch (InputMismatchException exception) {
             System.out.println("Invalid Input... returning to main menu");
         }
 
     }
+
     private void reviewMyInventory() {
         System.out.println("What items are you looking for?\n");
 
@@ -330,76 +317,63 @@ public class Store {
 
         int numChosen = input.nextInt();
 
-        if(recentPurchaseMade) {
+        if (recentPurchaseMade) {
             System.out.println("Here is a list of the items you now own in the category chosen: ");
         }
-        for(int i = 0; i < myStuff.size(); i++)
-        {
+        for (Buyable buyable : myStuff) {
 
-            if(numChosen == 1) {
-                if(myStuff.get(i).getItemCategory().equals("Clothing")) {
-                    System.out.print(myStuff.get(i).getItemName());
+            if (numChosen == 1) {
+                if (buyable.getItemCategory().equals("Clothing")) {
+                    System.out.print(buyable.getItemName());
                     System.out.println("");
                 }
-                else {
-                    System.out.println("\nYou don't have any clothing items in your inventory");
-                }
-            }
-            else if(numChosen == 2) {
-                if(myStuff.get(i).getItemCategory().equals("Food")) {
-                    System.out.print(myStuff.get(i).getItemName());
+
+            } else if (numChosen == 2) {
+                if (buyable.getItemCategory().equals("Food")) {
+                    System.out.print(buyable.getItemName());
                     System.out.println("");
                 }
-                else {
-                    System.out.println("\nYou don't have any food items in your inventory");
-                }
-            }
 
-            else if(numChosen == 3) {
-                if(myStuff.get(i).getItemCategory().equals("Game")) {
-                    System.out.print(myStuff.get(i).getItemName());
+            } else if (numChosen == 3) {
+                if (buyable.getItemCategory().equals("Game")) {
+                    System.out.print(buyable.getItemName());
                     System.out.println("");
                 }
-                else {
-                    System.out.println("\nYou don't have any Games in your inventory");
-                }
-            }
 
-            else if(numChosen == 4) {
-                if(myStuff.get(i).getItemCategory().equals("Electronics")) {
-                    System.out.print(myStuff.get(i).getItemName());
+            } else if (numChosen == 4) {
+                if (buyable.getItemCategory().equals("Electronics")) {
+                    System.out.print(buyable.getItemName());
                     System.out.println("");
                 }
-                else {
-
-                    System.out.println("\nYou don't have any electronic items in your inventory");
-                }
-            }
-            else if(numChosen == 5) {
-                System.out.print(myStuff.get(i).getItemName());
+            } else if (numChosen == 5) {
+                System.out.print(buyable.getItemName());
                 System.out.println("");
             }
 
         }
+        if(recentPurchaseMade) {
+            System.out.println("Print out the name of an item in your inventory if you would like to view the details about it, or press anything else to go back to the menu");
+            input.nextLine();
+            String next = input.nextLine();
 
 
-        System.out.println("Print out the name of an item in your inventory if you would like to view the details about it, or press anything else to go back to the menu");
-        input.nextLine();
-        String next = input.nextLine();
-
-        for(Buyable item: myStuff) {
-            if(item.getItemName().toLowerCase().equals(next.toLowerCase())) {
-                System.out.println("Item: " + item.getItemName());
-                System.out.println("Category: " + item.getItemCategory());
-                System.out.println("Price: $" + item.getPrice());
-            }
-            else {
-                System.out.println("You don't own this item or this item doesn't exist");
+            for(Buyable item: myStuff) {
+                if (item.getItemName().toLowerCase().equals(next.toLowerCase())) {
+                    System.out.println("Item: " + item.getItemName());
+                    System.out.println("Category: " + item.getItemCategory());
+                    System.out.println("Price: $" + item.getPrice());
+                }
+//          else {
+//              System.out.println("You don't own this item or this item doesn't exist");
+//          }
             }
         }
 
         viewRecentPurchases();
     }
+
+
+
 
     private void viewRecentPurchases() {
         //If a recent purchase is made, then print out the most recent purchase
