@@ -273,68 +273,45 @@ public class Store {
 
                 if(randomNum >= 0 && randomNum <= 50) {
                     double discount = 1/1.05;
+                    item.setPrice(item.getPrice()*discount);
                     System.out.println("Haggle Attempt Success\n");
-                    if(myBankAccount.canAfford(item.getPrice()))
-                    {
-                        //Check the password first to make sure the user inputs the correct password
-                        if(myBankAccount.checkPassword()) {
-                            double previousPrice = item.getPrice();
-                            myBankAccount.makePurchase(item.setPrice(item.getPrice() * discount));
-                            System.out.println("Purchase complete! You now own " + item.getItemName());
-                            myStuff.add(item);
-                            //If there is no most recent purchase, then the purchase just made is the most recent purchase
-                            if(mostRecentPurchase.equals("")) {
-                                mostRecentPurchase = item.getItemName();
-                                recentPurchaseMade = true;
-                            }
-                            //If there is a most recent purchase but not a second, then the purchase made is the second most recent
-                            else if(!mostRecentPurchase.equals("") && secondMostRecentPurchase.equals("")) {
-                                secondMostRecentPurchase = mostRecentPurchase;
-                                mostRecentPurchase = item.getItemName();
-                            }
-                            //If there is a most recent and second most recent, then the purchase is the 3rd most recent
-                            else if(!mostRecentPurchase.equals("") && !secondMostRecentPurchase.equals("") && thirdMostRecentPurchase.equals("")) {
-                                String temp1;
-                                String temp2;
-                                temp1 = mostRecentPurchase;
-                                temp2 = secondMostRecentPurchase;
-
-                                secondMostRecentPurchase = temp1;
-                                thirdMostRecentPurchase = temp2;
-                                mostRecentPurchase = item.getItemName();
-                            }
-                            //If all are there, then shift the most recent to 2nd, 2nd to third, third gone and the newest purchase as the most
-                            else if(!mostRecentPurchase.equals("") && !secondMostRecentPurchase.equals("") && !thirdMostRecentPurchase.equals("")) {
-                                String tempOne;
-                                String tempTwo;
-
-                                tempOne = mostRecentPurchase;
-                                tempTwo = secondMostRecentPurchase;
-
-                                secondMostRecentPurchase = tempOne;
-                                thirdMostRecentPurchase = tempTwo;
-
-                                mostRecentPurchase = item.getItemName();
-                            }
-                            //Remove the item from the inventory
-                            storeInventory.removeItemFromInventory(item);
-                        }
-                    }
-                    //Otherwise the user can't afford the item
-                    else
-                    {
-                        System.out.println("You can't afford that item ... ");
-                    }
+                    makePurchaseFromStore(item);
                 }
                 else {
                     System.out.println("Haggle attempt failed.");
                 }
             }
             else if(numChosen == 2) {
+                int y = 100;
+                int randomNum = rand.nextInt(y);
+
+                if(randomNum >= 0 && randomNum <=25) {
+                    double discount = 1/1.15;
+                    item.setPrice(item.getPrice()*discount);
+                    System.out.println("Haggle Attempt Success\n");
+                    makePurchaseFromStore(item);
+                }
+                else {
+                    System.out.println("Haggle attempt failed.");
+                }
 
             }
             else if(numChosen == 3) {
+                int y = 100;
+                int randomNum = rand.nextInt(y);
 
+                if(randomNum >= 0 && randomNum <=10) {
+                    double discount = 1 / 1.3;
+                    item.setPrice(item.getPrice() * discount);
+                    System.out.println("Haggle Attempt Success\n");
+                    makePurchaseFromStore(item);
+                }
+                else {
+                    System.out.println("Haggle attempt failed.");
+                }
+            }
+            else {
+                System.out.println("Incorrect input");
             }
         }
         catch(InputMismatchException exception) {
