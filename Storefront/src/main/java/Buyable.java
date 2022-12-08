@@ -5,7 +5,8 @@ public class Buyable {
     private double price;
     private String itemName;
     private String itemCategory;
-    
+
+    private BuyableGame game;
     public Buyable(double price, String name, String category)
     {
         this.price = price;
@@ -16,7 +17,9 @@ public class Buyable {
     public double getPrice() {
         return price;
     }
-
+    public String getGenre(){
+        return game.getGenre();
+    }
     public double setPrice(double price) {
         this.price = price;
         return price;

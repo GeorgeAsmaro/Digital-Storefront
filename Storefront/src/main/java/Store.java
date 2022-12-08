@@ -266,8 +266,10 @@ public class Store {
                 if (randomNum >= discount1Max) {
                     double discount = 1 / 1.05;
                     item.setPrice(item.getPrice() * discount);
+
                     System.out.println("Haggle Attempt Success\n");
                     makePurchaseFromStore(item);
+                    item.setPrice(item.getPrice() * 1.05);
                 } else {
                     System.out.println("Haggle attempt failed.");
                     failed++;
@@ -348,6 +350,9 @@ public class Store {
             } else if (numChosen == 5) {
                 System.out.print(buyable.getItemName());
                 System.out.println("");
+            }
+            else {
+                System.out.println("boom");
             }
 
         }
