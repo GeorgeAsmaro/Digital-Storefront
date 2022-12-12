@@ -187,7 +187,7 @@ public class StoreInventory {
     }
     
     // Helper method to add multiple copies of the same item to the inventory at once
-    private void addMultiple(Buyable item, int numberToAdd) {
+    public void addMultiple(Buyable item, int numberToAdd) {
         if(item instanceof BuyableClothing)
         {
             for(int i = 0; i < numberToAdd; i++)

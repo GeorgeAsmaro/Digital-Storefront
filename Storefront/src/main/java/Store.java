@@ -22,6 +22,12 @@ public class Store {
     String secondMostRecentPurchase = "";
     String thirdMostRecentPurchase = "";
 
+    static boolean admin = false;
+
+    public static void setAdmin(boolean isAdmin) {
+        admin = isAdmin;
+    }
+
     public Store() {
         System.out.println("Welcome to my storefont!");
         setupAccounts();
@@ -66,7 +72,13 @@ public class Store {
                 System.out.println("4. Review the items you already own");
                 System.out.println("5. View the status of your financials");
                 System.out.println("6. Return recently purchased items");
-                System.out.println("7. Exit program");
+                if(admin) {
+                    System.out.println("7. Admin Menu");
+                    System.out.println("8. Exit Program");
+                }
+                else {
+                    System.out.println("7. Exit program");
+                }
 
                 int userInput = input.nextInt();
                 input.nextLine(); // buffer clear
@@ -85,11 +97,34 @@ public class Store {
                     case 6 -> returnItem();
 
                     case 7 -> {
-                        System.out.println("Thanks for shopping! Now exiting program ... ");
-                        stillShopping = false;
-                        System.exit(0);
+
+                        if(admin) {
+                            System.out.println("1. Create a new item");
+                            System.out.println("2. Go back");
+
+                            int num = input.nextInt();
+
+                            if(num == 1) {
+                                newItem();
+                            }
+                        }
+                        if(!admin) {
+                            System.out.println("Thanks for shopping! Now exiting program ... ");
+                            stillShopping = false;
+                            System.exit(0);
+                        }
                     }
 
+                    case 8 -> {
+                        if(!admin) {
+                            System.out.println("Incorrect input. Choose again!");
+                        }
+                        if(admin) {
+                            System.out.println("Thanks for shopping! Now exiting program ... ");
+                            stillShopping = false;
+                            System.exit(0);
+                        }
+                    }
 
                     default -> System.out.println("Incorrect input. Choose again!");
                 }
@@ -100,6 +135,101 @@ public class Store {
         }
     }
 
+    private void newItem() {
+        try {
+            System.out.println("What category is the item?\n");
+
+            System.out.println("1. Clothing");
+            System.out.println("2. Food");
+            System.out.println("3. Games");
+            System.out.println("4. Electronics");
+
+            int type = input.nextInt();
+
+            if(type == 1) {
+                System.out.println("What is the price?");
+                double price = input.nextDouble();
+
+                System.out.println("What is the name?");
+                input.nextLine();
+                String name = input.nextLine();
+
+                System.out.println("What is the size?");
+                String size = input.nextLine();
+                BuyableClothing newClothes = new BuyableClothing(price,name,size);
+
+                System.out.println("How many would you like to add?");
+                int amount = input.nextInt();
+
+                storeInventory.addMultiple(newClothes,amount);
+            }
+            else if(type == 2) {
+                System.out.println("What is the price?");
+                double price = input.nextDouble();
+
+                System.out.println("What is the name?");
+                input.nextLine();
+                String name = input.nextLine();
+
+                System.out.println("What is the weight?");
+                double weight = input.nextDouble();
+
+                BuyableFood newFood = new BuyableFood(price,name,weight);
+
+                System.out.println("How many would you like to add?");
+                int amount = input.nextInt();
+
+                storeInventory.addMultiple(newFood,amount);
+            }
+            else if(type == 3) {
+                System.out.println("What is the price?");
+                double price = input.nextDouble();
+
+                System.out.println("What is the name?");
+                input.nextLine();
+                String name = input.nextLine();
+
+                System.out.println("How many players?");
+                int players = input.nextInt();
+
+                input.nextLine();
+
+                System.out.println("What's the genre?");
+                String genre = input.nextLine();
+
+                BuyableGame newGame = new BuyableGame(price,name,players,genre);
+
+                System.out.println("How many would you like to add?");
+                int amount = input.nextInt();
+
+                storeInventory.addMultiple(newGame,amount);
+            }
+            else if(type == 4) {
+                System.out.println("What is the price?");
+                double price = input.nextDouble();
+
+                System.out.println("What is the name?");
+                input.nextLine();
+                String name = input.nextLine();
+
+                System.out.println("What brand is it?");
+                String brand = input.nextLine();
+
+                BuyableElectronics newElectronics = new BuyableElectronics(price,name,brand);
+
+                System.out.println("How many would you like to add?");
+                int amount = input.nextInt();
+
+                storeInventory.addMultiple(newElectronics,amount);
+            }
+            else {
+                System.out.println("Invalid Input.");
+            }
+        }
+        catch(InputMismatchException exception) {
+            System.out.println("Invalid Input.");
+        }
+    }
     private void viewCatalog() {
         boolean finished = false;
         while (!finished) {
@@ -354,7 +484,6 @@ public class Store {
             else {
                 System.out.println("boom");
             }
-
         }
         if(recentPurchaseMade) {
             System.out.println("Print out the name of an item in your inventory if you would like to view the details about it, or press anything else to go back to the menu");

@@ -5,9 +5,11 @@ import java.util.Scanner;
 public class BankAccount {
     
     Scanner scan = new Scanner(System.in);
-    
+
     private String password;
     private float balance;
+
+    private boolean admin = false;
 
     public BankAccount(float initialDeposit) {
         balance = initialDeposit;
@@ -29,6 +31,13 @@ public class BankAccount {
             else
             {
                 System.out.println("Password set! Your account is now ready with a balance of " + balance);
+            }
+
+            if(password.equals(tempPassCheck) && password.equals("admin") && tempPassCheck.equals("admin")) {
+                admin = true;
+
+                Store.setAdmin(true);
+
             }
         }
         catch(InputMismatchException exception) {
