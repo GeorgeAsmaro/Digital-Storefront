@@ -53,7 +53,8 @@ public class Store {
                 int depositAmount = input.nextInt();
                 myBankAccount = new BankAccount(depositAmount);
                 moneyChosen = true;
-            } catch (InputMismatchException exception) {
+            }
+            catch (InputMismatchException exception) {
                 input.nextLine();
                 System.out.println("Invalid Input! Try again.");
             }
@@ -79,7 +80,6 @@ public class Store {
                 else {
                     System.out.println("7. Exit program");
                 }
-
                 int userInput = input.nextInt();
                 input.nextLine(); // buffer clear
 
@@ -125,7 +125,6 @@ public class Store {
                             System.exit(0);
                         }
                     }
-
                     default -> System.out.println("Incorrect input. Choose again!");
                 }
             } catch (InputMismatchException exception) {
@@ -291,11 +290,8 @@ public class Store {
 
     private void returnItem() {
         Buyable itemToBuy = null;
-
         System.out.println("Please type in the name of the item you wish to return");
-
         String itemName = input.nextLine();
-
         //If the item name inputted is a real item available, execute the return item from inventory to store method
         try {
             for (Buyable item : myStuff) {
@@ -304,9 +300,10 @@ public class Store {
                     returnItemFromInventoryToStore(itemToBuy);
                     break;
                 }
-
             }
-        } catch (ConcurrentModificationException ignored) {
+        }
+        catch (ConcurrentModificationException ignored) {
+
         }
     }
 
@@ -439,72 +436,77 @@ public class Store {
     }
 
     private void reviewMyInventory() {
-        System.out.println("What items are you looking for?\n");
+        try {
+            System.out.println("What items are you looking for?\n");
 
-        System.out.println("1. Clothing");
-        System.out.println("2. Food");
-        System.out.println("3. Games");
-        System.out.println("4. Electronics");
-        System.out.println("5. All available items");
+            System.out.println("1. Clothing");
+            System.out.println("2. Food");
+            System.out.println("3. Games");
+            System.out.println("4. Electronics");
+            System.out.println("5. All available items");
 
-        int numChosen = input.nextInt();
+            int numChosen = input.nextInt();
 
-        if (recentPurchaseMade) {
-            System.out.println("Here is a list of the items you now own in the category chosen: ");
-        }
-        for (Buyable buyable : myStuff) {
-
-            if (numChosen == 1) {
-                if (buyable.getItemCategory().equals("Clothing")) {
-                    System.out.print(buyable.getItemName());
-                    System.out.println("");
-                }
-
-            } else if (numChosen == 2) {
-                if (buyable.getItemCategory().equals("Food")) {
-                    System.out.print(buyable.getItemName());
-                    System.out.println("");
-                }
-
-            } else if (numChosen == 3) {
-                if (buyable.getItemCategory().equals("Game")) {
-                    System.out.print(buyable.getItemName());
-                    System.out.println("");
-                }
-
-            } else if (numChosen == 4) {
-                if (buyable.getItemCategory().equals("Electronics")) {
-                    System.out.print(buyable.getItemName());
-                    System.out.println("");
-                }
-            } else if (numChosen == 5) {
-                System.out.print(buyable.getItemName());
-                System.out.println("");
+            if (recentPurchaseMade) {
+                System.out.println("Here is a list of the items you now own in the category chosen: ");
             }
-            else {
-                System.out.println("boom");
-            }
-        }
-        if(recentPurchaseMade) {
-            System.out.println("Print out the name of an item in your inventory if you would like to view the details about it, or press anything else to go back to the menu");
-            input.nextLine();
-            String next = input.nextLine();
+            for (Buyable buyable : myStuff) {
 
+                if (numChosen == 1) {
+                    if (buyable.getItemCategory().equals("Clothing")) {
+                        System.out.print(buyable.getItemName());
+                        System.out.println("");
+                    }
 
-            for(Buyable item: myStuff) {
-                if (item.getItemName().toLowerCase().equals(next.toLowerCase())) {
-                    System.out.println("Item: " + item.getItemName());
-                    System.out.println("Category: " + item.getItemCategory());
-                    System.out.println("Price: $" + item.getPrice());
-                    break;
+                } else if (numChosen == 2) {
+                    if (buyable.getItemCategory().equals("Food")) {
+                        System.out.print(buyable.getItemName());
+                        System.out.println("");
+                    }
+
+                } else if (numChosen == 3) {
+                    if (buyable.getItemCategory().equals("Game")) {
+                        System.out.print(buyable.getItemName());
+                        System.out.println("");
+                    }
+
+                } else if (numChosen == 4) {
+                    if (buyable.getItemCategory().equals("Electronics")) {
+                        System.out.print(buyable.getItemName());
+                        System.out.println("");
+                    }
+                } else if (numChosen == 5) {
+                    System.out.print(buyable.getItemName());
+                    System.out.println("");
                 }
+                else {
+                    System.out.println("boom");
+                }
+            }
+            if(recentPurchaseMade) {
+                System.out.println("Print out the name of an item in your inventory if you would like to view the details about it, or press anything else to go back to the menu");
+                input.nextLine();
+                String next = input.nextLine();
+
+
+                for(Buyable item: myStuff) {
+                    if (item.getItemName().toLowerCase().equals(next.toLowerCase())) {
+                        System.out.println("Item: " + item.getItemName());
+                        System.out.println("Category: " + item.getItemCategory());
+                        System.out.println("Price: $" + item.getPrice());
+                        break;
+                    }
 //              else {
 //                  System.out.println("You don't own this item or this item doesn't exist");
 //              }
+                }
             }
-        }
 
-        viewRecentPurchases();
+            viewRecentPurchases();
+        }
+        catch(InputMismatchException exception) {
+
+        }
     }
 
 
@@ -627,8 +629,9 @@ public class Store {
     }
     
     private void buyItemInShoppingCart() {
-        System.out.println("Type in the name of the item you want to buy from the shopping cart: ");
-        String userChoice = input.nextLine();
+        try {
+            System.out.println("Type in the name of the item you want to buy from the shopping cart: ");
+            String userChoice = input.nextLine();
 
             for(Buyable itemInCart: myShoppingCart)
             {
@@ -648,6 +651,10 @@ public class Store {
                     System.out.println("Item could not be found in shopping cart.");
                 }
             }
+        }
+        catch(InputMismatchException exception) {
+
+        }
     }
 
 
@@ -671,7 +678,7 @@ public class Store {
                         {
                             myShoppingCart.remove(item);
                             System.out.println("You have removed " + cartItem.getItemName() + " from your shopping cart.");
-                            storeInventory.restockItemToInventory(item);
+                            storeInventory.addMultiple(item,1);
                             finished = true;
                         }
                         //Otherwise the item named couldn't be found in the shopping cart
@@ -684,7 +691,6 @@ public class Store {
                 catch(ConcurrentModificationException exception) {
 
                 }
-
             }
             catch(InputMismatchException exception) {
                 input.nextLine();
