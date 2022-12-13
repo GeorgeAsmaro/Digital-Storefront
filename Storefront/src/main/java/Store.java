@@ -496,6 +496,7 @@ public class Store {
                     System.out.println("Item: " + item.getItemName());
                     System.out.println("Category: " + item.getItemCategory());
                     System.out.println("Price: $" + item.getPrice());
+                    break;
                 }
 //              else {
 //                  System.out.println("You don't own this item or this item doesn't exist");
