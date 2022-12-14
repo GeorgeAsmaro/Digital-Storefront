@@ -20,6 +20,7 @@ public class BankAccount {
     private void setPassword() {
         try {
             System.out.println("Please enter a password for your account: ");
+            System.out.println("If you want to log in as an admin, use the password \"admin\"");
             password = scan.nextLine();
             System.out.println("Confirm your password by entering it one more time!");
             String tempPassCheck = scan.nextLine();
