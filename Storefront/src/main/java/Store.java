@@ -767,9 +767,7 @@ public class Store {
                         }
                     }
                 }
-                catch(ConcurrentModificationException exception) {
-
-                }
+                catch(ConcurrentModificationException exception) {}
             }
             catch(InputMismatchException exception) {
                 input.nextLine();
