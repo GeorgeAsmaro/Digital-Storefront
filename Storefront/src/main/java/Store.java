@@ -240,7 +240,8 @@ public class Store {
                 System.out.println("3. Games");
                 System.out.println("4. Electronics");
                 System.out.println("5. All available items");
-                System.out.println("6. Back to main menu");
+                System.out.println("6. View a specific item");
+                System.out.println("7. Back to main menu");
 
                 int category = input.nextInt();
 
@@ -277,6 +278,39 @@ public class Store {
                         finished = true;
                     }
                     case 6 -> {
+                        System.out.println("List the name of the item you would like to view the details of");
+                        input.nextLine();
+                        String itemName = input.nextLine();
+                        for(Buyable item: storeInventory.getFullInventoryList()) {
+                            if(item.getItemName().toLowerCase().equals(itemName.toLowerCase())) {
+                                System.out.println("We have " + item.getItemName() + " in stock!");
+                                System.out.println();
+                                System.out.println("Item: " + item.getItemName());
+                                System.out.println("Category: " + item.getItemCategory());
+                                System.out.println("Price: $" + item.getPrice());
+                                if(item.getItemCategory().equals("Game")) {
+                                    System.out.println("Genre: " + item.getGenre());
+                                    System.out.println("Number of Players: " + item.getNumPlayers());
+                                }
+
+                                if(item.getItemCategory().equals("Clothing")) {
+                                    System.out.println("Size: " + item.getSize());
+                                }
+
+                                if(item.getItemCategory().equals("Food")) {
+                                    System.out.println("Weight: " + item.getWeight());
+                                }
+
+                                if(item.getItemCategory().equals("Electronics")) {
+                                    System.out.println("Brand: " + item.getBrand());
+                                }
+                                System.out.println();
+                                break;
+                            }
+                        }
+                        finished = true;
+                    }
+                    case 7 -> {
                         finished = true;
                     }
                     default -> System.out.println("Invalid Input...");
@@ -335,7 +369,24 @@ public class Store {
                     System.out.println("Item: " + itemToBuy.getItemName());
                     System.out.println("Category: " + itemToBuy.getItemCategory());
                     System.out.println("Price: $" + itemToBuy.getPrice());
+                    if(itemToBuy.getItemCategory().equals("Game")) {
+                        System.out.println("Genre: " + itemToBuy.getGenre());
+                        System.out.println("Number of Players: " + itemToBuy.getNumPlayers());
+                    }
+
+                    if(itemToBuy.getItemCategory().equals("Clothing")) {
+                        System.out.println("Size: " + itemToBuy.getSize());
+                    }
+
+                    if(itemToBuy.getItemCategory().equals("Food")) {
+                        System.out.println("Weight: " + itemToBuy.getWeight());
+                    }
+
+                    if(itemToBuy.getItemCategory().equals("Electronics")) {
+                        System.out.println("Brand: " + itemToBuy.getBrand());
+                    }
                     System.out.println();
+
                     System.out.println("Type 1 to BUY NOW or 2 to PLACE IN YOUR SHOPPING CART or 3 to attempt to HAGGLE THE ITEM.");
 
                     int userInput = input.nextInt();
@@ -479,10 +530,8 @@ public class Store {
                     System.out.print(buyable.getItemName());
                     System.out.println("");
                 }
-                else {
-                    System.out.println("boom");
-                }
             }
+
             if(recentPurchaseMade) {
                 System.out.println("Print out the name of an item in your inventory if you would like to view the details about it, or press anything else to go back to the menu");
                 input.nextLine();
@@ -494,11 +543,25 @@ public class Store {
                         System.out.println("Item: " + item.getItemName());
                         System.out.println("Category: " + item.getItemCategory());
                         System.out.println("Price: $" + item.getPrice());
+                        if(item.getItemCategory().equals("Game")) {
+                            System.out.println("Genre: " + item.getGenre());
+                            System.out.println("Number of Players: " + item.getNumPlayers());
+                        }
+
+                        if(item.getItemCategory().equals("Clothing")) {
+                            System.out.println("Size: " + item.getSize());
+                        }
+
+                        if(item.getItemCategory().equals("Food")) {
+                            System.out.println("Weight: " + item.getWeight());
+                        }
+
+                        if(item.getItemCategory().equals("Electronics")) {
+                            System.out.println("Brand: " + item.getBrand());
+                        }
+                        System.out.println();
                         break;
                     }
-//              else {
-//                  System.out.println("You don't own this item or this item doesn't exist");
-//              }
                 }
             }
 
@@ -642,6 +705,22 @@ public class Store {
                     System.out.println("Item: " + itemInCart.getItemName());
                     System.out.println("Category: " + itemInCart.getItemCategory());
                     System.out.println("Price: $" + itemInCart.getPrice());
+                    if(itemInCart.getItemCategory().equals("Game")) {
+                        System.out.println("Genre: " + itemInCart.getGenre());
+                        System.out.println("Number of Players: " + itemInCart.getNumPlayers());
+                    }
+
+                    if(itemInCart.getItemCategory().equals("Clothing")) {
+                        System.out.println("Size: " + itemInCart.getSize());
+                    }
+
+                    if(itemInCart.getItemCategory().equals("Food")) {
+                        System.out.println("Weight: " + itemInCart.getWeight());
+                    }
+
+                    if(itemInCart.getItemCategory().equals("Electronics")) {
+                        System.out.println("Brand: " + itemInCart.getBrand());
+                    }
                     System.out.println();
                     makePurchaseFromShoppingCart(itemInCart);
                     break;

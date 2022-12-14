@@ -7,6 +7,9 @@ public class Buyable {
     private String itemCategory;
 
     private BuyableGame game;
+    private BuyableClothing clothing;
+    private BuyableElectronics electronics;
+    private BuyableFood food;
     public Buyable(double price, String name, String category)
     {
         this.price = price;
@@ -20,11 +23,18 @@ public class Buyable {
     public String getGenre(){
         return game.getGenre();
     }
+
+    public String getSize() { return clothing.getSize(); }
+
+    public double getWeight() { return food.getWeight();}
+
+    public int getNumPlayers() { return game.getNumPlayers();}
     public double setPrice(double price) {
         this.price = price;
         return price;
     }
 
+    public String getBrand() { return electronics.getBrand();}
     public String getItemName() {
         return itemName;
     }
