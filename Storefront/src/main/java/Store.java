@@ -765,6 +765,7 @@ public class Store {
             System.out.println("Type in the name of the item you want to buy from the shopping cart: ");
             String userChoice = input.nextLine();
 
+            Buyable item = null;
             for(Buyable itemInCart: myShoppingCart)
             {
                 //If the item named is a real item available, then list the item and it's details
@@ -791,13 +792,16 @@ public class Store {
                         System.out.println("Brand: " + itemInCart.getBrand());
                     }
                     System.out.println();
-                    makePurchaseFromShoppingCart(itemInCart);
+                    item = itemInCart;
                     break;
                 }
-                //Otherwise the item couldn't be found
-                else {
-                    System.out.println("Item could not be found in shopping cart.");
-                }
+            }
+            if(item != null) {
+                makePurchaseFromShoppingCart(item);
+            }
+            //Otherwise the item couldn't be found
+            else {
+                System.out.println("Item could not be found in shopping cart.");
             }
         }
         catch(InputMismatchException exception) {
@@ -819,22 +823,28 @@ public class Store {
 
                 String userChoice = input.nextLine();
                 try {
+                    Buyable items = null;
                     for(Buyable cartItem: myShoppingCart)
                     {
                         //If the item named is actually in the shopping cart, remove it from the shopping cart and restock it to the store's inventory
                         if(cartItem.getItemName().toLowerCase().equals(userChoice.toLowerCase()))
                         {
-                            myShoppingCart.remove(item);
+                            items = cartItem;
                             System.out.println("You have removed " + cartItem.getItemName() + " from your shopping cart.");
-                            storeInventory.addMultiple(item,1);
-                            finished = true;
                         }
-                        //Otherwise the item named couldn't be found in the shopping cart
-                        else {
-                            System.out.println("Item could not be found in your shopping cart.");
-                            finished = true;
-                        }
+
                     }
+                    if(items != null) {
+                        myShoppingCart.remove(items);
+                        storeInventory.addMultiple(items,1);
+                        finished = true;
+                    }
+                    //Otherwise the item named couldn't be found in the shopping cart
+                    else {
+                        System.out.println("Item could not be found in your shopping cart.");
+                        finished = true;
+                    }
+
                 }
                 catch(ConcurrentModificationException exception) {}
             }
