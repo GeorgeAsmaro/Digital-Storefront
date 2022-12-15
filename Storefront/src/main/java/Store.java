@@ -278,11 +278,14 @@ public class Store {
                         finished = true;
                     }
                     case 6 -> {
+                        boolean found1 = false;
                         System.out.println("List the name of the item you would like to view the details of");
                         input.nextLine();
                         String itemName = input.nextLine();
+
                         for(Buyable item: storeInventory.getFullInventoryList()) {
                             if(item.getItemName().toLowerCase().equals(itemName.toLowerCase())) {
+                                found1 = true;
                                 System.out.println("We have " + item.getItemName() + " in stock!");
                                 System.out.println();
                                 System.out.println("Item: " + item.getItemName());
@@ -308,8 +311,74 @@ public class Store {
                                 break;
                             }
                         }
+                        if(!found1) {
+                            for(Buyable item: myStuff) {
+                                if(item.getItemName().toLowerCase().equals(itemName.toLowerCase())) {
+                                    found1 = true;
+                                    System.out.println("We have " + item.getItemName() + " in stock!");
+                                    System.out.println();
+                                    System.out.println("Item: " + item.getItemName());
+                                    System.out.println("Category: " + item.getItemCategory());
+                                    System.out.println("Price: $" + item.getPrice());
+                                    if(item.getItemCategory().equals("Game")) {
+                                        System.out.println("Genre: " + item.getGenre());
+                                        System.out.println("Number of Players: " + item.getNumPlayers());
+                                    }
+
+                                    if(item.getItemCategory().equals("Clothing")) {
+                                        System.out.println("Size: " + item.getSize());
+                                    }
+
+                                    if(item.getItemCategory().equals("Food")) {
+                                        System.out.println("Weight: " + item.getWeight());
+                                    }
+
+                                    if(item.getItemCategory().equals("Electronics")) {
+                                        System.out.println("Brand: " + item.getBrand());
+                                    }
+                                    System.out.println();
+                                    break;
+                                }
+                            }
+                        }
+                        if(!found1) {
+                            for(Buyable item: myShoppingCart) {
+                                if(item.getItemName().toLowerCase().equals(itemName.toLowerCase())) {
+                                    found1 = true;
+                                    System.out.println("We have " + item.getItemName() + " in stock!");
+                                    System.out.println();
+                                    System.out.println("Item: " + item.getItemName());
+                                    System.out.println("Category: " + item.getItemCategory());
+                                    System.out.println("Price: $" + item.getPrice());
+                                    if(item.getItemCategory().equals("Game")) {
+                                        System.out.println("Genre: " + item.getGenre());
+                                        System.out.println("Number of Players: " + item.getNumPlayers());
+                                    }
+
+                                    if(item.getItemCategory().equals("Clothing")) {
+                                        System.out.println("Size: " + item.getSize());
+                                    }
+
+                                    if(item.getItemCategory().equals("Food")) {
+                                        System.out.println("Weight: " + item.getWeight());
+                                    }
+
+                                    if(item.getItemCategory().equals("Electronics")) {
+                                        System.out.println("Brand: " + item.getBrand());
+                                    }
+                                    System.out.println();
+                                    break;
+                                }
+                            }
+                        }
+
+                        if(!found1) {
+                            System.out.println("Item could not be found");
+                            finished = true;
+                        }
                         finished = true;
                     }
+
                     case 7 -> {
                         finished = true;
                     }
