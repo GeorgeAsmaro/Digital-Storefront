@@ -34,6 +34,7 @@ public class BankAccount {
                 System.out.println("Password set! Your account is now ready with a balance of " + balance);
             }
 
+            //If the password chosen and confirmation are both "admin" then you are logged in as an admin and gets the prompts given to an admin
             if(password.equals(tempPassCheck) && password.equals("admin") && tempPassCheck.equals("admin")) {
                 admin = true;
 
