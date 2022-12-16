@@ -287,27 +287,7 @@ public class Store {
                             if(item.getItemName().toLowerCase().equals(itemName.toLowerCase())) {
                                 found1 = true;
                                 System.out.println("We have " + item.getItemName() + " in stock!");
-                                System.out.println();
-                                System.out.println("Item: " + item.getItemName());
-                                System.out.println("Category: " + item.getItemCategory());
-                                System.out.println("Price: $" + item.getPrice());
-                                if(item.getItemCategory().equals("Game")) {
-                                    System.out.println("Genre: " + item.getGenre());
-                                    System.out.println("Number of Players: " + item.getNumPlayers());
-                                }
-
-                                if(item.getItemCategory().equals("Clothing")) {
-                                    System.out.println("Size: " + item.getSize());
-                                }
-
-                                if(item.getItemCategory().equals("Food")) {
-                                    System.out.println("Weight: " + item.getWeight());
-                                }
-
-                                if(item.getItemCategory().equals("Electronics")) {
-                                    System.out.println("Brand: " + item.getBrand());
-                                }
-                                System.out.println();
+                                getInfo(item);
                                 break;
                             }
                         }
@@ -316,27 +296,7 @@ public class Store {
                                 if(item.getItemName().toLowerCase().equals(itemName.toLowerCase())) {
                                     found1 = true;
                                     System.out.println("We have " + item.getItemName() + " in stock!");
-                                    System.out.println();
-                                    System.out.println("Item: " + item.getItemName());
-                                    System.out.println("Category: " + item.getItemCategory());
-                                    System.out.println("Price: $" + item.getPrice());
-                                    if(item.getItemCategory().equals("Game")) {
-                                        System.out.println("Genre: " + item.getGenre());
-                                        System.out.println("Number of Players: " + item.getNumPlayers());
-                                    }
-
-                                    if(item.getItemCategory().equals("Clothing")) {
-                                        System.out.println("Size: " + item.getSize());
-                                    }
-
-                                    if(item.getItemCategory().equals("Food")) {
-                                        System.out.println("Weight: " + item.getWeight());
-                                    }
-
-                                    if(item.getItemCategory().equals("Electronics")) {
-                                        System.out.println("Brand: " + item.getBrand());
-                                    }
-                                    System.out.println();
+                                    getInfo(item);
                                     break;
                                 }
                             }
@@ -346,27 +306,7 @@ public class Store {
                                 if(item.getItemName().toLowerCase().equals(itemName.toLowerCase())) {
                                     found1 = true;
                                     System.out.println("We have " + item.getItemName() + " in stock!");
-                                    System.out.println();
-                                    System.out.println("Item: " + item.getItemName());
-                                    System.out.println("Category: " + item.getItemCategory());
-                                    System.out.println("Price: $" + item.getPrice());
-                                    if(item.getItemCategory().equals("Game")) {
-                                        System.out.println("Genre: " + item.getGenre());
-                                        System.out.println("Number of Players: " + item.getNumPlayers());
-                                    }
-
-                                    if(item.getItemCategory().equals("Clothing")) {
-                                        System.out.println("Size: " + item.getSize());
-                                    }
-
-                                    if(item.getItemCategory().equals("Food")) {
-                                        System.out.println("Weight: " + item.getWeight());
-                                    }
-
-                                    if(item.getItemCategory().equals("Electronics")) {
-                                        System.out.println("Brand: " + item.getBrand());
-                                    }
-                                    System.out.println();
+                                    getInfo(item);
                                     break;
                                 }
                             }
@@ -433,28 +373,7 @@ public class Store {
                 // If a suitable item was found, give them the option to buy it!
                 if (itemToBuy != null) {
                     //Lists the details of the item inputted as long as it's available
-                    System.out.println("We have " + itemToBuy.getItemName() + " in stock!");
-                    System.out.println();
-                    System.out.println("Item: " + itemToBuy.getItemName());
-                    System.out.println("Category: " + itemToBuy.getItemCategory());
-                    System.out.println("Price: $" + itemToBuy.getPrice());
-                    if(itemToBuy.getItemCategory().equals("Game")) {
-                        System.out.println("Genre: " + itemToBuy.getGenre());
-                        System.out.println("Number of Players: " + itemToBuy.getNumPlayers());
-                    }
-
-                    if(itemToBuy.getItemCategory().equals("Clothing")) {
-                        System.out.println("Size: " + itemToBuy.getSize());
-                    }
-
-                    if(itemToBuy.getItemCategory().equals("Food")) {
-                        System.out.println("Weight: " + itemToBuy.getWeight());
-                    }
-
-                    if(itemToBuy.getItemCategory().equals("Electronics")) {
-                        System.out.println("Brand: " + itemToBuy.getBrand());
-                    }
-                    System.out.println();
+                    getInfo(itemToBuy);
 
                     System.out.println("Type 1 to BUY NOW or 2 to PLACE IN YOUR SHOPPING CART or 3 to attempt to HAGGLE THE ITEM.");
 
@@ -609,26 +528,7 @@ public class Store {
 
                 for(Buyable item: myStuff) {
                     if (item.getItemName().toLowerCase().equals(next.toLowerCase())) {
-                        System.out.println("Item: " + item.getItemName());
-                        System.out.println("Category: " + item.getItemCategory());
-                        System.out.println("Price: $" + item.getPrice());
-                        if(item.getItemCategory().equals("Game")) {
-                            System.out.println("Genre: " + item.getGenre());
-                            System.out.println("Number of Players: " + item.getNumPlayers());
-                        }
-
-                        if(item.getItemCategory().equals("Clothing")) {
-                            System.out.println("Size: " + item.getSize());
-                        }
-
-                        if(item.getItemCategory().equals("Food")) {
-                            System.out.println("Weight: " + item.getWeight());
-                        }
-
-                        if(item.getItemCategory().equals("Electronics")) {
-                            System.out.println("Brand: " + item.getBrand());
-                        }
-                        System.out.println();
+                        getInfo(item);
                         break;
                     }
                 }
@@ -723,13 +623,17 @@ public class Store {
                     //If 1 is pressed, you can purchase any items in the shopping cart, if 2, you can remove any in shopping cart, and press anything else to go back
                     System.out.println("Press 1 if you would like to purchase any held items, press 2 if you would like to remove any items from your shopping cart, and press any other key for neither");
 
+                    //Get user input
                     String userInput = input.nextLine();
 
+                    //If user chooses 1, buy the item
                     if(userInput.equals("1"))
                     {
                         buyItemInShoppingCart();
                         finished = true;
                     }
+
+                    //If the user chooses 2, remove the item from the shopping cart
                     else if(userInput.equals("2")) {
 
                         for(Buyable item: myShoppingCart)
@@ -771,27 +675,7 @@ public class Store {
                 //If the item named is a real item available, then list the item and it's details
                 if(itemInCart.getItemName().toLowerCase().equals(userChoice.toLowerCase()))
                 {
-                    System.out.println();
-                    System.out.println("Item: " + itemInCart.getItemName());
-                    System.out.println("Category: " + itemInCart.getItemCategory());
-                    System.out.println("Price: $" + itemInCart.getPrice());
-                    if(itemInCart.getItemCategory().equals("Game")) {
-                        System.out.println("Genre: " + itemInCart.getGenre());
-                        System.out.println("Number of Players: " + itemInCart.getNumPlayers());
-                    }
-
-                    if(itemInCart.getItemCategory().equals("Clothing")) {
-                        System.out.println("Size: " + itemInCart.getSize());
-                    }
-
-                    if(itemInCart.getItemCategory().equals("Food")) {
-                        System.out.println("Weight: " + itemInCart.getWeight());
-                    }
-
-                    if(itemInCart.getItemCategory().equals("Electronics")) {
-                        System.out.println("Brand: " + itemInCart.getBrand());
-                    }
-                    System.out.println();
+                    getInfo(itemInCart);
                     item = itemInCart;
                     break;
                 }
@@ -807,6 +691,30 @@ public class Store {
         catch(InputMismatchException exception) {
 
         }
+    }
+
+    private void getInfo(Buyable item) {
+        System.out.println();
+        System.out.println("Item: " + item.getItemName());
+        System.out.println("Category: " + item.getItemCategory());
+        System.out.println("Price: $" + item.getPrice());
+        if(item.getItemCategory().equals("Game")) {
+            System.out.println("Genre: " + item.getGenre());
+            System.out.println("Number of Players: " + item.getNumPlayers());
+        }
+
+        if(item.getItemCategory().equals("Clothing")) {
+            System.out.println("Size: " + item.getSize());
+        }
+
+        if(item.getItemCategory().equals("Food")) {
+            System.out.println("Weight: " + item.getWeight());
+        }
+
+        if(item.getItemCategory().equals("Electronics")) {
+            System.out.println("Brand: " + item.getBrand());
+        }
+        System.out.println();
     }
 
 
